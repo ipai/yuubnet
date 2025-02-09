@@ -14,15 +14,15 @@ import { Copyright } from '@/components/copyright'
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: 'Next.js Portfolio Starter',
-    template: '%s | Next.js Portfolio Starter',
+    default: 'Ita Pai\'s Portfolio',
+    template: '%s | Ita Pai\'s Portfolio',
   },
   description: 'This is my portfolio.',
   openGraph: {
-    title: 'My Portfolio',
+    title: 'Ita Pai\'s Portfolio',
     description: 'This is my portfolio.',
     url: baseUrl,
-    siteName: 'My Portfolio',
+    siteName: 'Ita Pai\'s Portfolio',
     locale: 'en_US',
     type: 'website',
   },

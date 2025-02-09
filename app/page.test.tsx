@@ -31,11 +31,12 @@ describe('Page', () => {
     expect(subtitle).toHaveClass('dark:text-gray-400')
   })
 
-  it('renders the resume PDF viewer', () => {
+  it('renders the resume image viewer', () => {
     const { container } = render(<Page />)
-    const pdfViewer = container.querySelector('object[type="application/pdf"]')
-    expect(pdfViewer).toBeInTheDocument()
-    expect(pdfViewer).toHaveAttribute('data', expect.stringContaining('resume.pdf'))
+    const imageViewer = container.querySelector('img')
+    expect(imageViewer).toBeInTheDocument()
+    expect(imageViewer).toHaveAttribute('src', expect.stringContaining('resume.png'))
+    expect(imageViewer).toHaveAttribute('alt', 'Resume')
   })
 
   it('renders the PDF download link', () => {
