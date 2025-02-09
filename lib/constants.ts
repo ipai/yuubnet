@@ -1,4 +1,5 @@
-// Analytics endpoints
+// Worker URLs
+export const ASSET_FETCH_WORKER_URL = 'https://yuubnet-asset-fetch.ipai-mc.workers.dev'
 export const ANALYTICS_WORKER_URL = 'https://yuubnet-analytics.ipai-mc.workers.dev'
 
 // List of blocked user agents

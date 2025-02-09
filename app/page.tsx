@@ -1,5 +1,6 @@
-const CLOUDFLARE_R2_URL = 'https://pub-1adfebbdc0354931942140af358273a6.r2.dev'
-const RESUME_PDF_URL = `${CLOUDFLARE_R2_URL}/resume/resume.pdf`
+import { ASSET_FETCH_WORKER_URL } from '@/lib/constants'
+
+const RESUME_PDF_URL = `${ASSET_FETCH_WORKER_URL}/resume/resume.pdf`
 
 export default function Page() {
   return (
