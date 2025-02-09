@@ -1,5 +1,6 @@
+import Image from 'next/image'
 import { ASSET_FETCH_WORKER_URL } from '@/lib/constants'
-import { FadeInSection } from './components/fade-in-section'
+import { ResumeDescription } from './components/resume-description'
 
 const RESUME_PDF_URL = `${ASSET_FETCH_WORKER_URL}/resume/resume.pdf`
 const RESUME_PNG_URL = `${ASSET_FETCH_WORKER_URL}/resume/resume.png`
@@ -26,7 +27,7 @@ export default function Page() {
               <img
                 src={RESUME_PNG_URL}
                 alt="Resume"
-                className="w-full h-full object-contain bg-white dark:bg-neutral-900"
+                className="w-full h-full object-contain bg-white dark:bg-neutral-900 dark:invert dark:brightness-[95.5%] dark:contrast-[95%]"
               />
             </div>
             <div className="mt-4 text-center">
@@ -40,15 +41,7 @@ export default function Page() {
             </div>
           </div>
           <div className="mt-8 lg:mt-0 lg:fixed lg:right-8 lg:w-[300px] lg:top-1/2 lg:-translate-y-1/2">
-            <FadeInSection observeId="top-tracker" invert={true}>
-              <div className="p-6 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 backdrop-blur-sm">
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                  This resume is maintained in a LaTeX source file, ensuring consistent formatting and professional typesetting.
-                  When changes are made to the source, a GitHub Actions workflow automatically rebuilds both PDF and PNG versions
-                  and deploys them to a CDN, keeping all versions synchronized and readily available.
-                </p>
-              </div>
-            </FadeInSection>
+            <ResumeDescription />
           </div>
         </div>
       </section>

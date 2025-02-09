@@ -20,7 +20,7 @@ describe('SocialIcons', () => {
 
     // Check Email link
     const emailLink = screen.getByRole('link', { name: 'Send email' })
-    expect(emailLink).toHaveAttribute('href', 'mailto:ipai.mc@gmail.com')
+    expect(emailLink).toHaveAttribute('href', 'mailto:ita@yuub.net')
     expect(emailLink).toHaveAttribute('target', '_blank')
     expect(emailLink).toHaveAttribute('rel', 'noopener noreferrer')
   })
