@@ -1,46 +1,28 @@
 import { NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient()
+export const runtime = 'edge'
+export const preferredRegion = 'auto'
+
+const ANALYTICS_ENDPOINT = 'https://yuubnet-analytics.ipai-mc.workers.dev'
 
 export async function POST(request: Request) {
   try {
-    let visitor;
-    try {
-      visitor = await request.json()
-    } catch (parseError) {
-      console.error('Failed to parse request body:', parseError)
-      return NextResponse.json(
-        { error: 'Invalid request format' },
-        { status: 400 }
-      )
-    }
-
-    // Validate required fields
-    const requiredFields = ['timestamp', 'path']
-    for (const field of requiredFields) {
-      if (!visitor[field]) {
-        return NextResponse.json(
-          { error: `Missing required field: ${field}` },
-          { status: 400 }
-        )
-      }
-    }
-
-    // Store in database
-    await prisma.visitor.create({
-      data: {
-        timestamp: new Date(visitor.timestamp),
-        ip: visitor.ip || null,
-        userAgent: visitor.userAgent || null,
-        path: visitor.path,
-        referer: visitor.referer || null,
-        country: visitor.country || null,
-        city: visitor.city || null,
+    // Forward the request to the Cloudflare Worker
+    const response = await fetch(ANALYTICS_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
+      body: request.body
     })
 
-    return NextResponse.json({ success: true })
+    const data = await response.json()
+
+    if (!response.ok) {
+      return NextResponse.json(data, { status: response.status })
+    }
+
+    return NextResponse.json(data)
   } catch (error) {
     console.error('Failed to log visit:', error)
     const errorMessage = error instanceof Error ? error.message : 'Unknown error'

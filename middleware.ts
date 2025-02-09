@@ -29,6 +29,13 @@ interface Visitor {
   city?: string
 }
 
+interface IpApiResponse {
+  country_name: string | null;
+  city: string | null;
+  error?: boolean;
+  [key: string]: any; // for other properties we might not use
+}
+
 async function logVisit(request: NextRequest): Promise<void> {
   const timestamp = new Date()
   const ip = request.headers.get('x-forwarded-for')?.split(',')[0] || 
@@ -39,14 +46,14 @@ async function logVisit(request: NextRequest): Promise<void> {
   const referer = request.headers.get('referer') || 'direct'
 
   try {
-    let geoData = { country_name: null, city: null }
+    let geoData: Pick<IpApiResponse, 'country_name' | 'city'> = { country_name: null, city: null }
     
     // Only attempt geolocation if IP is not 'unknown'
     if (ip !== 'unknown') {
       try {
         const geoResponse = await fetch(`https://ipapi.co/${ip}/json/`)
         if (geoResponse.ok) {
-          const data = await geoResponse.json()
+          const data: IpApiResponse = await geoResponse.json()
           // Check if we got a rate limit or error response
           if (!data.error) {
             geoData = data
@@ -69,7 +76,7 @@ async function logVisit(request: NextRequest): Promise<void> {
     }
 
     // Send to your analytics endpoint
-    await fetch('/api/analytics/log', {
+    await fetch('https://yuubnet-analytics.ipai-mc.workers.dev', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

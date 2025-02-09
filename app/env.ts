@@ -5,7 +5,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 export const env = {
-  DATABASE_URL: process.env.DATABASE_URL,
   NODE_ENV: process.env.NODE_ENV,
   // Add other environment variables as needed
 } as const

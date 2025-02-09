@@ -3,20 +3,25 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "pages:build": "next build && npx @cloudflare/next-on-pages",
     "start": "next start",
     "setup": "./scripts/setup-env.sh",
     "db:push": "prisma db push",
     "db:studio": "prisma studio"
   },
   "dependencies": {
+    "@cloudflare/workers-types": "^4.20250204.0",
+    "@neondatabase/serverless": "^0.10.4",
+    "@prisma/adapter-pg": "^6.3.1",
     "@prisma/client": "latest",
-    "dotenv": "latest",
+    "@prisma/extension-accelerate": "^1.2.1",
     "@tailwindcss/postcss": "4.0.0-alpha.13",
     "@types/node": "20.11.17",
     "@types/react": "18.2.55",
     "@types/react-dom": "18.2.19",
     "@vercel/analytics": "latest",
     "@vercel/speed-insights": "latest",
+    "dotenv": "latest",
     "geist": "latest",
     "next": "14.1.0",
     "next-mdx-remote": "latest",
@@ -27,5 +32,8 @@
     "sugar-high": "latest",
     "tailwindcss": "4.0.0-alpha.13",
     "typescript": "5.3.3"
+  },
+  "devDependencies": {
+    "wrangler": "^3.107.3"
   }
 }
