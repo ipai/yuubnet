@@ -1,14 +1,13 @@
 import { NextResponse } from 'next/server'
+import { ANALYTICS_WORKER_URL } from '@/lib/constants'
 
 export const runtime = 'edge'
 export const preferredRegion = 'auto'
 
-const ANALYTICS_ENDPOINT = 'https://yuubnet-analytics.ipai-mc.workers.dev'
-
 export async function POST(request: Request) {
   try {
     // Forward the request to the Cloudflare Worker
-    const response = await fetch(ANALYTICS_ENDPOINT, {
+    const response = await fetch(ANALYTICS_WORKER_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

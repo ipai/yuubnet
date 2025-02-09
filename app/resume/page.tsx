@@ -1,5 +1,7 @@
 import { Metadata } from 'next'
-import { RESUME_PDF_URL } from '../constants'
+
+const CLOUDFLARE_R2_URL = 'https://pub-1adfebbdc0354931942140af358273a6.r2.dev'
+const RESUME_PDF_URL = `${CLOUDFLARE_R2_URL}/resume/resume.pdf`
 
 export const metadata: Metadata = {
   title: 'Resume',

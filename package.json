@@ -12,6 +12,7 @@
   "dependencies": {
     "@cloudflare/workers-types": "^4.20250204.0",
     "@neondatabase/serverless": "^0.10.4",
+    "@prisma/adapter-d1": "^6.3.1",
     "@prisma/adapter-pg": "^6.3.1",
     "@prisma/client": "latest",
     "@prisma/extension-accelerate": "^1.2.1",
@@ -24,7 +25,6 @@
     "dotenv": "latest",
     "geist": "latest",
     "next": "14.1.0",
-    "next-mdx-remote": "latest",
     "postcss": "latest",
     "prisma": "latest",
     "react": "18.2.0",

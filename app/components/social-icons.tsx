@@ -2,7 +2,7 @@ import { GitHubIcon, LinkedInIcon, MailIcon } from './icons'
 
 const socialLinks = {
   github: 'https://github.com/ipai',
-  linkedin: 'https://www.linkedin.com/in/ita-p-79b4b4b7/',
+  linkedin: 'https://www.linkedin.com/in/ita-pai/',
   email: 'ipai.mc@gmail.com',
 } as const
 

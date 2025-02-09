@@ -1,23 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { ANALYTICS_WORKER_URL, BLOCKED_USER_AGENTS, ALLOWED_REFERRERS } from '@/lib/constants'
 
-// List of blocked user agents
-const BLOCKED_USER_AGENTS = [
-  'ahrefsbot',
-  'semrushbot',
-  'mj12bot',
-  'rogerbot',
-  'dotbot',
-  'baiduspider',
-  'yandexbot',
-]
-
-// List of allowed referrers (add your known sources)
-const ALLOWED_REFERRERS = [
-  'https://yuubnet.com',
-  'https://www.yuubnet.com',
-  'http://localhost:3000',
-]
 
 interface Visitor {
   timestamp: Date
@@ -27,13 +11,6 @@ interface Visitor {
   referer: string
   country?: string
   city?: string
-}
-
-interface IpApiResponse {
-  country_name: string | null;
-  city: string | null;
-  error?: boolean;
-  [key: string]: any; // for other properties we might not use
 }
 
 async function logVisit(request: NextRequest): Promise<void> {
@@ -46,37 +23,16 @@ async function logVisit(request: NextRequest): Promise<void> {
   const referer = request.headers.get('referer') || 'direct'
 
   try {
-    let geoData: Pick<IpApiResponse, 'country_name' | 'city'> = { country_name: null, city: null }
-    
-    // Only attempt geolocation if IP is not 'unknown'
-    if (ip !== 'unknown') {
-      try {
-        const geoResponse = await fetch(`https://ipapi.co/${ip}/json/`)
-        if (geoResponse.ok) {
-          const data: IpApiResponse = await geoResponse.json()
-          // Check if we got a rate limit or error response
-          if (!data.error) {
-            geoData = data
-          }
-        }
-      } catch (geoError) {
-        console.error('Geolocation failed:', geoError)
-        // Continue without geolocation data
-      }
-    }
-
     const visitor: Visitor = {
       timestamp,
       ip,
       userAgent,
       path,
-      referer,
-      country: geoData.country_name || undefined,
-      city: geoData.city || undefined
+      referer
     }
 
     // Send to your analytics endpoint
-    await fetch('https://yuubnet-analytics.ipai-mc.workers.dev', {
+    await fetch(ANALYTICS_WORKER_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
