@@ -14,7 +14,8 @@ export const BLOCKED_USER_AGENTS = [
 
 // List of allowed referrers
 export const ALLOWED_REFERRERS = [
-  'https://yuubnet.com',
+  'https://yuub.net',
+  'https://yuubnet.pages.dev/',
   'https://www.yuubnet.com',
   'http://localhost:3000',
 ]

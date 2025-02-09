@@ -54,6 +54,15 @@ export async function middleware(request: NextRequest) {
   headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
   headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()')
 
+  // Check if path should be excluded from logging
+  const path = request.nextUrl.pathname
+  if (path.startsWith('/_next/static') || 
+      path.startsWith('/_next/image') || 
+      path === '/favicon.ico' || 
+      path.match(/\.(svg|png|jpg|jpeg|gif|webp)$/)) {
+    return response
+  }
+
   // Check user agent
   const userAgent = request.headers.get('user-agent')?.toLowerCase() || ''
   if (BLOCKED_USER_AGENTS.some(bot => userAgent.includes(bot))) {
@@ -73,7 +82,12 @@ export async function middleware(request: NextRequest) {
   // Check referrer for non-GET requests
   if (request.method !== 'GET') {
     const referrer = request.headers.get('referer') || ''
-    if (!ALLOWED_REFERRERS.some(allowed => referrer.startsWith(allowed))) {
+    console.log('Method:', request.method)
+    console.log('Referrer:', referrer)
+    console.log('Allowed referrers:', ALLOWED_REFERRERS)
+    const isAllowed = ALLOWED_REFERRERS.some(allowed => referrer.startsWith(allowed))
+    console.log('Is allowed:', isAllowed)
+    if (!isAllowed) {
       return new NextResponse('Invalid referrer', { status: 403 })
     }
   }

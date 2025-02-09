@@ -7,6 +7,9 @@ import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import Footer from './components/footer'
 import { baseUrl } from './sitemap'
+import { ThemeProvider } from '@/components/theme-provider'
+import { ThemeToggle } from '@/components/theme-toggle'
+import { Copyright } from '@/components/copyright'
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -47,19 +50,27 @@ export default function RootLayout({
     <html
       lang="en"
       className={cx(
-        'text-black bg-white dark:text-white dark:bg-black',
         GeistSans.variable,
-        GeistMono.variable
+        GeistMono.variable,
+        'h-full'
       )}
     >
-      <body className="antialiased mx-4 mt-8">
-        <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0 max-w-xl lg:max-w-5xl mx-auto">
-          <Navbar />
-          {children}
-          <Footer />
-          <Analytics />
-          <SpeedInsights />
-        </main>
+      <body className="antialiased min-h-full bg-white dark:bg-[#111] text-black dark:text-white transition-colors duration-150 m-0">
+        <ThemeProvider>
+          <header className="fixed top-0 left-0 right-0 bg-white/80 dark:bg-[#111]/80 backdrop-blur-sm z-50 border-b border-gray-200 dark:border-gray-800">
+            <div className="max-w-xl lg:max-w-4xl mx-auto px-8 md:px-12 py-4 flex justify-start">
+              <Navbar />
+            </div>
+          </header>
+          <main className="flex-auto min-w-0 mt-24 flex flex-col px-8 md:px-12 max-w-xl lg:max-w-4xl mx-auto">
+            {children}
+            <Footer />
+            <Copyright />
+            <Analytics />
+            <SpeedInsights />
+          </main>
+          <ThemeToggle />
+        </ThemeProvider>
       </body>
     </html>
   )
