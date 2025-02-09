@@ -3,22 +3,28 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "setup": "./scripts/setup-env.sh",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio"
   },
   "dependencies": {
+    "@prisma/client": "latest",
+    "dotenv": "latest",
     "@tailwindcss/postcss": "4.0.0-alpha.13",
     "@types/node": "20.11.17",
     "@types/react": "18.2.55",
     "@types/react-dom": "18.2.19",
-    "@vercel/analytics": "^1.1.3",
-    "@vercel/speed-insights": "^1.0.9",
-    "geist": "1.2.2",
-    "next": "canary",
-    "next-mdx-remote": "^4.4.1",
-    "postcss": "^8.4.35",
+    "@vercel/analytics": "latest",
+    "@vercel/speed-insights": "latest",
+    "geist": "latest",
+    "next": "14.1.0",
+    "next-mdx-remote": "latest",
+    "postcss": "latest",
+    "prisma": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "sugar-high": "^0.6.0",
+    "sugar-high": "latest",
     "tailwindcss": "4.0.0-alpha.13",
     "typescript": "5.3.3"
   }

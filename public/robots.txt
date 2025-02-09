@@ -1,0 +1,15 @@
+User-agent: *
+Disallow: /api/
+Allow: /$
+Allow: /resume$
+Allow: /sitemap.xml$
+
+# Block common bot user agents
+User-agent: AhrefsBot
+Disallow: /
+User-agent: SemrushBot
+Disallow: /
+User-agent: MJ12bot
+Disallow: /
+User-agent: Rogerbot
+Disallow: /
