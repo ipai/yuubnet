@@ -12,6 +12,7 @@
     "db:studio": "prisma studio"
   },
   "dependencies": {
+    "@cloudflare/next-on-pages": "^1.9.0",
     "@cloudflare/workers-types": "^4.20250204.0",
     "@neondatabase/serverless": "^0.10.4",
     "@types/node": "20.11.17",
@@ -20,12 +21,15 @@
     "@vercel/analytics": "latest",
     "@vercel/og": "^0.6.5",
     "@vercel/speed-insights": "latest",
+    "autoprefixer": "10.4.14",
     "dotenv": "latest",
     "geist": "latest",
     "next": "13.4.19",
+    "postcss": "8.4.14",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "sugar-high": "latest",
+    "tailwindcss": "3.3.0",
     "typescript": "5.3.3"
   },
   "devDependencies": {
@@ -33,10 +37,7 @@
     "@testing-library/react": "^16.2.0",
     "@vitejs/plugin-react": "^4.3.4",
     "@vitest/coverage-v8": "^3.0.5",
-    "autoprefixer": "10.4.14",
     "happy-dom": "^17.0.2",
-    "postcss": "8.4.14",
-    "tailwindcss": "3.3.0",
     "vitest": "^3.0.5",
     "wrangler": "^3.107.3"
   }
