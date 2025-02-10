@@ -3,7 +3,7 @@ import { GitHubIcon, LinkedInIcon, MailIcon } from './icons'
 const socialLinks = {
   github: 'https://github.com/ipai',
   linkedin: 'https://www.linkedin.com/in/ita-pai/',
-  email: 'ipai.mc@gmail.com',
+  email: 'ita@yuub.net',
 } as const
 
 interface SocialLinkProps {
