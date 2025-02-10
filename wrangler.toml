@@ -1,11 +1,7 @@
 name = "yuubnet"
-compatibility_date = "2024-02-09"
+pages_build_output_dir = ".vercel/output/static"
+compatibility_date = "2025-02-10"
 compatibility_flags = ["nodejs_compat"]
 
-# Environment variables
-[vars]
-NODE_ENV = "production"
-
-[dev]
-port = 8788
-local_protocol = "http"
+[env]
+production = { }
