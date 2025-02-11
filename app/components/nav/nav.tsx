@@ -1,11 +1,13 @@
 'use client'
 
 import { useCallback } from 'react'
+import commonStyles from '../common.module.css'
+import styles from './nav.module.css'
 
 const navItems = {
   '#': {
     name: 'home',
-    id: 'home'
+    id: 'top-tracker'
   },
   '#resume': {
     name: 'resume',
@@ -18,26 +20,31 @@ export function Navbar() {
     e.preventDefault()
     const element = document.getElementById(id)
     if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      })
-      // Update URL without causing a page jump
-      window.history.pushState({}, '', `#${id}`)
+      if (id === 'top-tracker') {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        })
+      } else {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        })
+      }
     }
   }, [])
 
   return (
-    <nav className="tracking-tight">
-      <div className="flex flex-row items-start">
-        <div className="flex flex-row space-x-2">
+    <nav className={styles.nav}>
+      <div className={styles.container}>
+        <div className={styles.linkContainer}>
           {Object.entries(navItems).map(([path, { name, id }]) => {
             return (
               <a
                 key={path}
                 href={path}
                 onClick={(e) => scrollToSection(e, id)}
-                className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2 m-1 cursor-pointer"
+                className={commonStyles.navLink}
               >
                 {name}
               </a>

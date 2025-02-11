@@ -1,7 +1,17 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { ANALYTICS_WORKER_URL, BLOCKED_USER_AGENTS, ALLOWED_REFERRERS } from '@/lib/constants'
+// Constants for request filtering
+const BLOCKED_USER_AGENTS = [
+  'bot',
+  'crawler',
+  'spider',
+  'scraper'
+]
 
+const ALLOWED_REFERRERS = [
+  'localhost',
+  'yuubnet.com'
+]
 
 interface Visitor {
   timestamp: Date
@@ -31,8 +41,11 @@ async function logVisit(request: NextRequest): Promise<void> {
       referer
     }
 
+    const analyticsUrl = process.env.NEXT_PUBLIC_ANALYTICS_WORKER_URL
+    if (!analyticsUrl) return
+
     // Send to your analytics endpoint
-    await fetch(ANALYTICS_WORKER_URL, {
+    await fetch(analyticsUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

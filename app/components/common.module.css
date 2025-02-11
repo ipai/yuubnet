@@ -1,0 +1,24 @@
+/* Interactive Elements */
+.iconButton {
+  @apply text-neutral-400 hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300 transition-colors;
+}
+
+.infoIcon {
+  composes: iconButton;
+  @apply w-5 h-5;
+}
+
+.closeIcon {
+  composes: iconButton;
+  @apply w-4 h-4;
+}
+
+.navLink {
+  @apply transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2 m-1 cursor-pointer;
+}
+
+/* Containers */
+.panel {
+  @apply rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 backdrop-blur-sm shadow-lg;
+}
+

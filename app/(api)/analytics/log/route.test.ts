@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { POST } from './route'
-import { ANALYTICS_WORKER_URL } from '@/lib/constants'
+import { ANALYTICS_WORKER_URL } from '@/lib/env'
 
 vi.mock('next/server', () => ({
   NextResponse: {

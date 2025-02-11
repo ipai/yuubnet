@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, beforeAll, afterAll, vi } from 'vitest'
 import { NextRequest, NextResponse } from 'next/server'
 import { middleware } from './middleware'
-import { BLOCKED_USER_AGENTS, ALLOWED_REFERRERS } from './lib/constants'
+import { BLOCKED_USER_AGENTS, ALLOWED_REFERRERS } from './app/lib/env'
 
 vi.mock('next/server', async () => {
   const actual = await vi.importActual('next/server') as typeof import('next/server')

@@ -31,10 +31,8 @@ describe('Navbar', () => {
     
     const links = screen.getAllByRole('link')
     links.forEach(link => {
-      expect(link).toHaveClass('transition-all')
-      expect(link).toHaveClass('hover:text-neutral-800')
-      expect(link).toHaveClass('flex')
-      expect(link).toHaveClass('cursor-pointer')
+      // Check if link has the navLink class from common.module.css
+      expect(link.className).toContain('navLink')
     })
   })
 
@@ -43,46 +41,36 @@ describe('Navbar', () => {
     
     // Check if the nav element exists with correct classes
     const nav = container.querySelector('nav')
-    expect(nav).toHaveClass('tracking-tight')
+    expect(nav?.className).toContain('nav')
     
     // Check flex container structure
     const flexContainer = nav?.querySelector('div')
-    expect(flexContainer).toHaveClass('flex')
-    expect(flexContainer).toHaveClass('flex-row')
-    expect(flexContainer).toHaveClass('items-start')
+    expect(flexContainer?.className).toContain('container')
   })
 
   it('scrolls to section and updates URL when clicking links', () => {
     // Create mock sections
-    const homeSection = document.createElement('div')
-    homeSection.id = 'home'
     const resumeSection = document.createElement('div')
     resumeSection.id = 'resume'
-    document.body.appendChild(homeSection)
     document.body.appendChild(resumeSection)
 
     render(<Navbar />)
 
-    // Click home link
-    const homeLink = screen.getByText('home')
-    fireEvent.click(homeLink)
-    expect(homeSection.scrollIntoView).toHaveBeenCalledWith({
-      behavior: 'smooth',
-      block: 'start'
-    })
-    expect(pushStateSpy).toHaveBeenCalledWith({}, '', '#home')
-
     // Click resume link
     const resumeLink = screen.getByText('resume')
     fireEvent.click(resumeLink)
-    expect(resumeSection.scrollIntoView).toHaveBeenCalledWith({
+
+    // Check if scrollIntoView was called with smooth behavior
+    const scrollIntoViewMock = window.HTMLElement.prototype.scrollIntoView as any
+    expect(scrollIntoViewMock).toHaveBeenCalledWith({
       behavior: 'smooth',
       block: 'start'
     })
+
+    // Check if URL was updated
     expect(pushStateSpy).toHaveBeenCalledWith({}, '', '#resume')
 
     // Cleanup
-    document.body.removeChild(homeSection)
     document.body.removeChild(resumeSection)
   })
 

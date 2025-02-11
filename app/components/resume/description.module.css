@@ -1,0 +1,22 @@
+.container {
+  @apply absolute left-full top-1/2 -translate-y-1/2 ml-2 w-[300px] select-none z-50 transition-all duration-200;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.panel {
+  @apply relative p-6 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 backdrop-blur-sm shadow-lg;
+}
+
+.closeButton {
+  @apply absolute top-2 right-2 p-1 text-neutral-400 hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300 transition-colors;
+}
+
+.description {
+  @apply text-sm text-neutral-600 dark:text-neutral-400;
+}

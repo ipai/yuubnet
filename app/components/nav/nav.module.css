@@ -1,0 +1,11 @@
+.nav {
+  @apply tracking-tight;
+}
+
+.container {
+  @apply flex flex-row items-start;
+}
+
+.linkContainer {
+  @apply flex flex-row space-x-2;
+}
