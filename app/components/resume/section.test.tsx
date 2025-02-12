@@ -25,11 +25,11 @@ describe('ResumeSection', () => {
     expect(imageViewer).toHaveAttribute('alt', 'Resume')
   })
 
-  it('renders the PDF download link', () => {
+  it('renders the PDF download button', () => {
     render(<ResumeSection />)
-    const downloadLink = screen.getByText('Download PDF')
-    expect(downloadLink).toHaveAttribute('href', expect.stringContaining('resume.pdf'))
-    expect(downloadLink).toHaveAttribute('target', '_blank')
-    expect(downloadLink).toHaveAttribute('rel', 'noopener noreferrer')
+    const downloadButton = screen.getByText('Download PDF')
+    expect(downloadButton).toBeInTheDocument()
+    expect(downloadButton.tagName.toLowerCase()).toBe('button')
+    expect(downloadButton.className).toContain('textButton')
   })
 })

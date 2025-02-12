@@ -65,7 +65,7 @@ export function ResumeSection() {
           <div className="mt-4 text-center">
             <DownloadLink
               url={RESUME_PDF_URL}
-              className="text-neutral-600 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors cursor-pointer bg-transparent border-none p-0 m-0 font-inherit"
+              className={commonStyles.textButton}
             />
           </div>
         </div>

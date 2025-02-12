@@ -19,11 +19,11 @@ describe('Navbar', () => {
     
     // Check home link
     const homeLink = screen.getByText('home')
-    expect(homeLink).toHaveAttribute('href', '#')
+    expect(homeLink).toHaveAttribute('href', '/')
     
     // Check resume link
     const resumeLink = screen.getByText('resume')
-    expect(resumeLink).toHaveAttribute('href', '#resume')
+    expect(resumeLink).toHaveAttribute('href', '/resume')
   })
 
   it('applies correct styling to navigation items', () => {
@@ -68,7 +68,7 @@ describe('Navbar', () => {
     })
 
     // Check if URL was updated
-    expect(pushStateSpy).toHaveBeenCalledWith({}, '', '#resume')
+    expect(pushStateSpy).toHaveBeenCalledWith({}, '', window.location.pathname)
 
     // Cleanup
     document.body.removeChild(resumeSection)
