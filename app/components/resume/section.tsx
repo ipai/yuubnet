@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useState } from 'react'
 import { ResumeDescription } from './description'
+import { DownloadLink } from './download-link'
 import commonStyles from '../common.module.css'
 // URLs will be constructed at runtime
 function getAssetUrl(path: string): string {
@@ -62,14 +63,10 @@ export function ResumeSection() {
             />
           </a>
           <div className="mt-4 text-center">
-            <a
-              href={RESUME_PDF_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-neutral-600 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors"
-            >
-              Download PDF
-            </a>
+            <DownloadLink
+              url={RESUME_PDF_URL}
+              className="text-neutral-600 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors cursor-pointer bg-transparent border-none p-0 m-0 font-inherit"
+            />
           </div>
         </div>
       </div>

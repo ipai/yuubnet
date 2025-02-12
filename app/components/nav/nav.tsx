@@ -5,11 +5,11 @@ import commonStyles from '../common.module.css'
 import styles from './nav.module.css'
 
 const navItems = {
-  '#': {
+  '/': {
     name: 'home',
     id: 'top-tracker'
   },
-  '#resume': {
+  '/resume': {
     name: 'resume',
     id: 'resume'
   },
@@ -25,13 +25,13 @@ export function Navbar() {
           top: 0,
           behavior: 'smooth'
         })
-        history.pushState({}, '', '#')
+        history.pushState({}, '', window.location.pathname)
       } else {
         element.scrollIntoView({
           behavior: 'smooth',
           block: 'start'
         })
-        history.pushState({}, '', `#${id}`)
+        history.pushState({}, '', window.location.pathname)
       }
     }
   }, [])
