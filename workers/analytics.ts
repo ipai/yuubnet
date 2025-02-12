@@ -1,5 +1,12 @@
 // No imports needed for raw SQL
 
+const ALLOWED_ORIGINS = [
+  'https://yuub.net',
+  'https://www.yuub.net',
+  // Add development URLs if needed
+  ...(process.env.NODE_ENV === 'development' ? ['http://localhost:3000'] : [])
+];
+
 interface Env {
   DB: D1Database
   GEOLOCATION_CACHE: KVNamespace
@@ -20,24 +27,44 @@ interface VisitorData {
   city?: string
 }
 
+function handleCors(request: Request): Record<string, string> {
+  const origin = request.headers.get('Origin');
+  
+  // Only allow listed origins
+  if (origin && ALLOWED_ORIGINS.includes(origin)) {
+    return {
+      'Access-Control-Allow-Origin': origin,
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Vary': 'Origin' // Important when using dynamic CORS responses
+    };
+  }
+  
+  // Default to main domain for non-listed origins
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Vary': 'Origin'
+  };
+}
+
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
+    const corsHeaders = handleCors(request);
+
     // Handle CORS preflight requests
     if (request.method === 'OPTIONS') {
       return new Response(null, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type',
-        },
-      })
+        headers: corsHeaders
+      });
     }
 
     if (request.method !== 'POST') {
       return new Response('Method not allowed', { 
         status: 405,
-        headers: { 'Access-Control-Allow-Origin': '*' }
-      })
+        headers: corsHeaders
+      });
     }
 
     // Log the start of request processing
@@ -108,7 +135,7 @@ export default {
         status: 200,
         headers: { 
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+          ...corsHeaders
         },
       })
     } catch (error) {
@@ -119,7 +146,7 @@ export default {
           status: 500, 
           headers: { 
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
+            ...corsHeaders
           } 
         }
       )
