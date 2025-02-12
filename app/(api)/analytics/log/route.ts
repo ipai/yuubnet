@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 export const runtime = 'edge'
 export const preferredRegion = 'auto'
 
-const ANALYTICS_URL = process.env.NEXT_PUBLIC_ANALYTICS_WORKER_URL
+const ANALYTICS_URL = process.env.ANALYTICS_WORKER_URL
 
 export async function POST(request: Request) {
   if (!ANALYTICS_URL) {

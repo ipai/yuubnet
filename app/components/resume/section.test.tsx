@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { ResumeSection } from './section'
 
@@ -15,14 +15,6 @@ describe('ResumeSection', () => {
     expect(heading).toHaveClass('font-semibold')
     expect(heading).toHaveClass('text-2xl')
     expect(heading).toHaveClass('tracking-tighter')
-  })
-
-  it('renders the resume image viewer', () => {
-    const { container } = render(<ResumeSection />)
-    const imageViewer = container.querySelector('img')
-    expect(imageViewer).toBeInTheDocument()
-    expect(imageViewer).toHaveAttribute('src', expect.stringContaining('resume.resized.webp'))
-    expect(imageViewer).toHaveAttribute('alt', 'Resume')
   })
 
   it('renders the PDF download button', () => {

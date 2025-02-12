@@ -41,7 +41,7 @@ async function logVisit(request: NextRequest): Promise<void> {
       referer
     }
 
-    const analyticsUrl = process.env.NEXT_PUBLIC_ANALYTICS_WORKER_URL
+    const analyticsUrl = process.env.ANALYTICS_WORKER_URL
     if (!analyticsUrl) return
 
     // Send to your analytics endpoint

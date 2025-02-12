@@ -20,6 +20,11 @@
 *.pem
 .vscode
 
+# resume files
+public/resume/resume.pdf
+public/resume/resume.webp
+public/resume/resume.png
+
 # debug
 npm-debug.log*
 yarn-debug.log*

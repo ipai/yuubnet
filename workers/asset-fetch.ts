@@ -44,9 +44,7 @@ export default {
     headers.set('content-disposition', `attachment; filename="${key.split('/').pop()}"`)
     
     // Add CORS headers
-    headers.set('access-control-allow-origin', '*')
     headers.set('access-control-allow-methods', 'GET, HEAD, OPTIONS')
-    headers.set('access-control-allow-headers', '*')
     
     // Handle preflight requests
     if (request.method === 'OPTIONS') {

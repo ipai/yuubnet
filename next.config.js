@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: process.env.NEXT_PUBLIC_ASSET_FETCH_WORKER_URL?.replace(/^https?:\/\//, '') || 'yuubnet-asset-fetch.ipai-mc.workers.dev',
+        hostname: process.env.ASSET_FETCH_WORKER_URL?.replace(/^https?:\/\//, ''),
         pathname: '/resume/**',
       },
     ],

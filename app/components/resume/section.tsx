@@ -1,18 +1,21 @@
 'use client'
 
-import Image from 'next/image'
 import { useState } from 'react'
 import { ResumeDescription } from './description'
 import { DownloadLink } from './download-link'
 import commonStyles from '../common.module.css'
-// URLs will be constructed at runtime
-function getAssetUrl(path: string): string {
-  const baseUrl = process.env.NEXT_PUBLIC_ASSET_FETCH_WORKER_URL || ''
-  return baseUrl ? `${baseUrl}${path}` : path
-}
+import { getCloudflareImageUrl } from '@/app/utils/cloudflare-image'
 
-const RESUME_PDF_URL = getAssetUrl('/resume/resume.pdf')
-const RESUME_WEBP_URL = getAssetUrl('/resume/resume.resized.webp')
+// Image ID from Cloudflare Images upload
+const RESUME_IMAGE_ID = process.env.NEXT_PUBLIC_RESUME_IMAGE_ID
+const RESUME_PDF_URL = '/resume/resume.pdf'
+const RESUME_WEBP_URL = RESUME_IMAGE_ID ? getCloudflareImageUrl(RESUME_IMAGE_ID, {
+  width: 700,
+  height: 906,
+  format: 'webp',
+  quality: 100,
+  fit: 'contain'
+}) : '/resume/resume.webp'
 
 export function ResumeSection() {
   const [isHovered, setIsHovered] = useState(false)
