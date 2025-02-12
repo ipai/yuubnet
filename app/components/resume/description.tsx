@@ -7,11 +7,17 @@ interface ResumeDescriptionProps {
   isPinned?: boolean
   isVisible?: boolean
   className?: string
+  id?: string
 }
 
-export function ResumeDescription({ onClose, isPinned = false, isVisible = false, className = '' }: ResumeDescriptionProps) {
+export function ResumeDescription({ onClose, isPinned = false, isVisible = false, className = '', id }: ResumeDescriptionProps) {
   return (
-    <div className={`${styles.container} ${isVisible ? styles.visible : ''} ${className}`}>
+    <div
+      id={id}
+      role="dialog"
+      aria-modal="true"
+      className={`${styles.container} ${isVisible ? styles.visible : ''} ${className}`}
+    >
       <div className={styles.panel}>
         {isPinned && (
           <button

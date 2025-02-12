@@ -28,6 +28,9 @@ export function ResumeSection() {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onClick={() => setIsPinned(!isPinned)}
+            aria-label="Resume information"
+            aria-expanded={isHovered || isPinned}
+            aria-controls="resume-description"
           >
             <svg
               className={commonStyles.infoIcon}
@@ -47,6 +50,7 @@ export function ResumeSection() {
             isPinned={isPinned}
             onClose={() => setIsPinned(false)}
             isVisible={isHovered || isPinned}
+            id="resume-description"
           />
         </div>
       </div>
