@@ -1,14 +1,14 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 // Constants for request filtering
-const BLOCKED_USER_AGENTS = [
+export const BLOCKED_USER_AGENTS = [
   'bot',
   'crawler',
   'spider',
   'scraper'
 ]
 
-const ALLOWED_REFERRERS = [
+export const ALLOWED_REFERRERS = [
   'localhost',
   'yuubnet.com'
 ]

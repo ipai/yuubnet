@@ -4,13 +4,11 @@
 }
 
 .infoIcon {
-  composes: iconButton;
-  @apply w-5 h-5;
+  @apply text-neutral-400 hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300 transition-colors w-5 h-5;
 }
 
 .closeIcon {
-  composes: iconButton;
-  @apply w-4 h-4;
+  @apply text-neutral-400 hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300 transition-colors w-4 h-4;
 }
 
 .navLink {

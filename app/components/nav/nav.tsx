@@ -25,11 +25,13 @@ export function Navbar() {
           top: 0,
           behavior: 'smooth'
         })
+        history.pushState({}, '', '#')
       } else {
         element.scrollIntoView({
           behavior: 'smooth',
           block: 'start'
         })
+        history.pushState({}, '', `#${id}`)
       }
     }
   }, [])

@@ -17,14 +17,29 @@ export async function POST(request: Request) {
   }
 
   try {
+    console.log('Request details:', {
+      url: request.url,
+      method: request.method,
+      headers: Array.from(request.headers),
+      body: await request.text()
+    });
+    const body = await request.text()
+    console.log('Request body:', body);
     const response = await fetch(ANALYTICS_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: request.body
+      body: body
     })
-
+    console.log('Fetch call is being made');
+    if (!response.ok) {
+      const error = await response.json()
+      return new Response(JSON.stringify(error), {
+        status: response.status,
+        headers: { 'Content-Type': 'application/json' }
+      })
+    }
     return response
   } catch (error) {
     return new Response(
