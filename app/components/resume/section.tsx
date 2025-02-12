@@ -53,12 +53,11 @@ export function ResumeSection() {
       <div className="relative">
         <div className="max-w-[700px] mx-auto">
           <a href={RESUME_PDF_URL} target="_blank" rel="noopener noreferrer">
-            <Image
+            <img
               src={RESUME_PNG_URL}
               alt="Resume"
-              width={1275}
-              height={1650}
-              priority
+              width={700}
+              height={906}
               className="rounded-lg border border-neutral-200 dark:border-neutral-800"
             />
           </a>
