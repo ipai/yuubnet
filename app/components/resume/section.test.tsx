@@ -21,7 +21,7 @@ describe('ResumeSection', () => {
     const { container } = render(<ResumeSection />)
     const imageViewer = container.querySelector('img')
     expect(imageViewer).toBeInTheDocument()
-    expect(imageViewer).toHaveAttribute('src', expect.stringContaining('resume.png'))
+    expect(imageViewer).toHaveAttribute('src', expect.stringContaining('resume.resized.webp'))
     expect(imageViewer).toHaveAttribute('alt', 'Resume')
   })
 

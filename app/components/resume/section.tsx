@@ -12,7 +12,7 @@ function getAssetUrl(path: string): string {
 }
 
 const RESUME_PDF_URL = getAssetUrl('/resume/resume.pdf')
-const RESUME_PNG_URL = getAssetUrl('/resume/resume.png')
+const RESUME_WEBP_URL = getAssetUrl('/resume/resume.resized.webp')
 
 export function ResumeSection() {
   const [isHovered, setIsHovered] = useState(false)
@@ -58,7 +58,7 @@ export function ResumeSection() {
         <div className="max-w-[700px] mx-auto">
           <a href={RESUME_PDF_URL} target="_blank" rel="noopener noreferrer">
             <img
-              src={RESUME_PNG_URL}
+              src={RESUME_WEBP_URL}
               alt="Resume"
               width={700}
               height={906}
