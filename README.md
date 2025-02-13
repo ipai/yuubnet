@@ -5,13 +5,13 @@ This is the source for my portfolio page, currently built with Next.js on Cloudf
 ## Deploy Pages
 ```bash
 pnpm run pages:build && \
-npx wrangler pages deploy .dist
+npx wrangler pages deploy ./vercel/output/static
 ```
 
 ## Deploy analytics database
 ```bash
-npx wrangler deploy --config wrangler.asset-fetch.toml
-npx wrangler deploy --config wrangler.analytics.toml
+npx wrangler deploy --config workers/wrangler.asset-fetch.toml
+npx wrangler deploy --config workers/wrangler.analytics.toml
 ```
 
 ## Develop locally

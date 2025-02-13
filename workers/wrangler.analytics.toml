@@ -1,6 +1,6 @@
 name = "yuubnet-analytics"
 compatibility_date = "2024-02-08"
-main = "workers/analytics.ts"
+main = "analytics.ts"
 
 # Enable necessary features for Prisma Edge
 compatibility_flags = ["nodejs_compat"]
@@ -10,12 +10,6 @@ binding = "DB"
 database_name = "yuubnet-analytics"
 database_id = "f9bcbeef-0311-4004-92b0-2ead237f6034"
 migrations_dir = "prisma/migrations"
-
-[env.production]
-name = "yuubnet-production"
-
-[env.development]
-name = "yuubnet-development"
 
 [[kv_namespaces]]
 id = "2707d7308fe7469c9cb8484294e949f8"

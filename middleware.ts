@@ -4,16 +4,29 @@ import { logAnalytics } from '@/app/lib/analytics'
 
 // Constants for request filtering
 export const BLOCKED_USER_AGENTS = [
-  'bot',
-  'crawler',
-  'spider',
-  'scraper'
+  'googlebot',
+  'bingbot',
+  'yandexbot',
+  'baiduspider',
+  'facebookexternalhit',
+  'twitterbot',
+  'rogerbot',
+  'linkedinbot',
+  'embedly',
+  'quora link preview',
+  'showyoubot',
+  'outbrain',
+  'pinterest',
+  'slackbot',
+  'vkShare',
+  'W3C_Validator'
 ]
 
 export const ALLOWED_REFERRERS = [
   'localhost',
   'yuubnet.pages.dev',
-  'yuub.net'
+  'yuub.net',
+  'www.yuub.net'
 ]
 
 interface Visitor {
@@ -95,7 +108,8 @@ export async function middleware(request: NextRequest) {
 
   // Check user agent
   const userAgent = request.headers.get('user-agent')?.toLowerCase() || ''
-  if (BLOCKED_USER_AGENTS.some(bot => userAgent.includes(bot))) {
+  // Only block if it's a known bot/crawler
+  if (userAgent && BLOCKED_USER_AGENTS.some(bot => userAgent.includes(bot.toLowerCase()))) {
     return new NextResponse('Access Denied', { status: 403 })
   }
 

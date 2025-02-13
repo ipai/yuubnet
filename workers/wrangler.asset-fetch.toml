@@ -1,6 +1,6 @@
 name = "yuubnet-asset-fetch"
 compatibility_date = "2024-02-08"
-main = "workers/asset-fetch.ts"
+main = "asset-fetch.ts"
 
 [[r2_buckets]]
 binding = 'BUCKET'
