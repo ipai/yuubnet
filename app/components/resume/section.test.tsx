@@ -118,7 +118,7 @@ describe('ResumeSection', () => {
     expect(image).toHaveAttribute('width', '700')
     expect(image).toHaveAttribute('height', '906')
     // Next.js Image component transforms the src, so we'll check if the URL contains our image path
-    expect(image.getAttribute('src')).toContain('resume%2Fresume.webp')
+    expect(image.getAttribute('src')).toContain('resume/resume.webp')
     expect(image.closest('a')).toHaveAttribute('href', '/resume/resume.pdf')
     expect(image.closest('a')).toHaveAttribute('target', '_blank')
   })

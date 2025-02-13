@@ -1,4 +1,5 @@
 import { GitHubIcon, LinkedInIcon, MailIcon } from './icons'
+import { EmailLink } from '@/app/components/email-link'
 
 const socialLinks = {
   github: 'https://github.com/ipai',
@@ -26,6 +27,17 @@ function SocialLink({ href, icon: Icon, label }: SocialLinkProps) {
   )
 }
 
+function EmailIconLink() {
+  return (
+    <EmailLink
+      email={socialLinks.email}
+      className="group -m-1 p-1 transition duration-200"
+    >
+      <MailIcon className="h-6 w-6 fill-gray-500 transition group-hover:fill-blue-500 dark:fill-gray-400 dark:group-hover:fill-blue-300" />
+    </EmailLink>
+  )
+}
+
 export function SocialIcons() {
   return (
     <div className="flex gap-6">
@@ -39,11 +51,7 @@ export function SocialIcons() {
         icon={LinkedInIcon}
         label="Follow on LinkedIn"
       />
-      <SocialLink
-        href={`mailto:${socialLinks.email}`}
-        icon={MailIcon}
-        label="Send email"
-      />
+      <EmailIconLink />
     </div>
   )
 }

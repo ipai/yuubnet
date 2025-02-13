@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState } from 'react'
-import { useNonce } from '../nonce-provider'
+import { useNonce } from '../nonce/nonce-provider'
 
 type Theme = 'dark' | 'light'
 
@@ -12,6 +12,15 @@ type ThemeContextType = {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
+function debugTheme(action: string, params: Record<string, unknown>) {
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`[Theme ${action}]`, {
+      ...params,
+      darkClassPresent: document.documentElement.classList.contains('dark'),
+    })
+  }
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const nonce = useNonce()
   const [theme, setTheme] = useState<Theme>('light')
@@ -21,34 +30,29 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const storedTheme = localStorage.getItem('theme') as Theme
     const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
     const initialTheme = storedTheme || systemTheme
-    console.log('Initial theme:', initialTheme)
-    console.log('Stored theme:', storedTheme)
-    console.log('System theme:', systemTheme)
+
+    debugTheme('init', { initialTheme, storedTheme, systemTheme })
+    
     setTheme(initialTheme)
     if (initialTheme === 'dark') {
-      console.log('Adding dark class on init')
       document.documentElement.classList.add('dark')
     } else {
-      console.log('Removing dark class on init')
       document.documentElement.classList.remove('dark')
     }
-    console.log('Dark class present after init:', document.documentElement.classList.contains('dark'))
   }, [])
 
   const toggleTheme = () => {
-    console.log('Toggling theme from:', theme)
     const newTheme = theme === 'light' ? 'dark' : 'light'
-    console.log('New theme will be:', newTheme)
+    debugTheme('toggle', { currentTheme: theme, newTheme })
+
     setTheme(newTheme)
     localStorage.setItem('theme', newTheme)
+    
     if (newTheme === 'dark') {
-      console.log('Adding dark class')
       document.documentElement.classList.add('dark')
     } else {
-      console.log('Removing dark class')
       document.documentElement.classList.remove('dark')
     }
-    console.log('Dark class present after toggle:', document.documentElement.classList.contains('dark'))
   }
 
   return (

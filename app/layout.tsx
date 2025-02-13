@@ -8,7 +8,7 @@ import { baseUrl } from './(metadata)/sitemap'
 import { ThemeProvider } from '@/app/components/theme/theme-provider'
 import { ThemeToggle } from '@/app/components/theme/theme-toggle'
 import { Copyright } from '@/app/components/copyright'
-import { NonceServer } from './components/nonce-server'
+import { NonceServer } from './components/nonce/nonce-server'
 
 
 export const metadata: Metadata = {

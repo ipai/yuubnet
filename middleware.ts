@@ -82,7 +82,7 @@ export async function middleware(request: NextRequest) {
   const policies = {
     'default-src': ["'self'"],
     'style-src': [`'self'`, `'nonce-${nonce}'`],
-    'style-src-attr': ["'unsafe-hashes'", "'sha256-zlqnbDt84zf1iSefLU/ImC54isoprH/MRiVZGskwexk='"],
+    'style-src-attr': [`'self'`, "'unsafe-hashes'", "'sha256-zlqnbDt84zf1iSefLU/ImC54isoprH/MRiVZGskwexk='"],
     'script-src': [`'self'`, `'nonce-${nonce}'`, "'strict-dynamic'", 'http:', 'https:'],
     'img-src': [`'self'`, 'blob:', 'data:', process.env.NEXT_PUBLIC_ASSET_FETCH_WORKER_URL || ''],
     'font-src': [`'self'`, 'data:', 'https:'],
@@ -101,7 +101,7 @@ export async function middleware(request: NextRequest) {
   const cspHeader = Object.entries(policies)
     .map(([key, values]) => `${key} ${values.join(' ')};`)
     .join(' ')
-    .concat(' block-all-mixed-content; upgrade-insecure-requests; require-trusted-types-for \'script\';')
+    .concat(' block-all-mixed-content; upgrade-insecure-requests;')
 
   // Add CSP header
   headers.set('Content-Security-Policy', cspHeader)
