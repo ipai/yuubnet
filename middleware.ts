@@ -123,6 +123,22 @@ export async function middleware(request: NextRequest) {
   // Add COOP header (prevent window opener attacks)
   headers.set('Cross-Origin-Opener-Policy', 'same-origin')
 
+  // Add CORS headers
+  const origin = request.headers.get('origin')
+  const baseUrl = process.env.BASE_URL || 'http://localhost:3000'
+  const baseHost = new URL(baseUrl).host
+  
+  if (origin && (
+    origin === baseUrl || // Exact match
+    origin === `https://${baseHost}` || // HTTPS version
+    origin.endsWith(`-${baseHost}`) || // Preview deployments
+    origin === 'http://localhost:3000' // Local development
+  )) {
+    headers.set('Access-Control-Allow-Origin', origin)
+    headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+    headers.set('Access-Control-Allow-Headers', 'Content-Type')
+  }
+
   // Check if path should be excluded from logging
   const path = request.nextUrl.pathname
   if (path.startsWith('/_next/static') || 
