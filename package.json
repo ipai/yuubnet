@@ -21,7 +21,7 @@
     "autoprefixer": "10.4.14",
     "dotenv": "latest",
     "geist": "latest",
-    "next": "^15.1.7",
+    "next": "^14.2.15",
     "postcss": "^8.5.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
