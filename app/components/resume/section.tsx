@@ -4,18 +4,12 @@ import { useState } from 'react'
 import { ResumeDescription } from './description'
 import { DownloadLink } from './download-link'
 import commonStyles from '../common.module.css'
-import { getCloudflareImageUrl } from '@/app/utils/cloudflare-image'
 
-// Image ID from Cloudflare Images upload
-const RESUME_IMAGE_ID = process.env.NEXT_PUBLIC_RESUME_IMAGE_ID
-const RESUME_WEBP_URL = RESUME_IMAGE_ID ? getCloudflareImageUrl(RESUME_IMAGE_ID, {
-  width: 700,
-  height: 906,
-  format: 'webp',
-  quality: 100,
-  fit: 'contain'
-}) : '/resume/resume.webp'
-const RESUME_PDF_URL = '/resume/resume.pdf'
+import { getAssetUrl } from '@/app/lib/asset-url'
+
+// Get asset URLs based on environment
+const RESUME_IMG_URL = getAssetUrl('resume/resume.webp')
+const RESUME_PDF_URL = getAssetUrl('resume/resume.pdf')
 
 export function ResumeSection() {
   const [isHovered, setIsHovered] = useState(false)
@@ -61,7 +55,7 @@ export function ResumeSection() {
         <div className="max-w-[700px] mx-auto">
           <a href={RESUME_PDF_URL} target="_blank" rel="noopener noreferrer">
             <img
-              src={RESUME_WEBP_URL}
+              src={RESUME_IMG_URL}
               alt="Resume"
               width={700}
               height={906}

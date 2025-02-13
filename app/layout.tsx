@@ -11,6 +11,11 @@ import { Copyright } from '@/app/components/copyright'
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
+  icons: {
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
+  },
   title: {
     default: 'Ita Pai\'s Portfolio',
     template: '%s | Ita Pai\'s Portfolio',

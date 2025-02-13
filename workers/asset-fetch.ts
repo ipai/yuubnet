@@ -41,18 +41,20 @@ export default {
     const headers = new Headers()
     headers.set('content-type', mimeType)
     headers.set('cache-control', 'public, max-age=31536000') // Cache for 1 year
-    headers.set('content-disposition', `attachment; filename="${key.split('/').pop()}"`)
-    
-    // Add CORS headers
     headers.set('access-control-allow-methods', 'GET, HEAD, OPTIONS')
+    
+    // Set content-disposition based on file type
+    if (extension === 'pdf') {
+      headers.set('content-disposition', `attachment; filename="${key.split('/').pop()}"`)
+    } else if (extension && ['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'].includes(extension)) {
+      headers.set('content-disposition', 'inline')
+    }
     
     // Handle preflight requests
     if (request.method === 'OPTIONS') {
       return new Response(null, { headers })
     }
     
-    return new Response(object.body, {
-      headers
-    })
+    return new Response(object.body, { headers })
   }
 }

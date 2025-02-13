@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { logAnalytics } from '@/app/lib/analytics'
+
 // Constants for request filtering
 export const BLOCKED_USER_AGENTS = [
   'bot',
@@ -10,7 +12,8 @@ export const BLOCKED_USER_AGENTS = [
 
 export const ALLOWED_REFERRERS = [
   'localhost',
-  'yuubnet.com'
+  'yuubnet.pages.dev',
+  'yuub.net'
 ]
 
 interface Visitor {
@@ -41,17 +44,7 @@ async function logVisit(request: NextRequest): Promise<void> {
       referer
     }
 
-    const analyticsUrl = process.env.ANALYTICS_WORKER_URL
-    if (!analyticsUrl) return
-
-    // Send to your analytics endpoint
-    await fetch(analyticsUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(visitor),
-    })
+    await logAnalytics(visitor)
   } catch (error) {
     console.error('Failed to log visit:', error)
   }
