@@ -8,7 +8,6 @@ import { getCloudflareImageUrl } from '@/app/utils/cloudflare-image'
 
 // Image ID from Cloudflare Images upload
 const RESUME_IMAGE_ID = process.env.NEXT_PUBLIC_RESUME_IMAGE_ID
-const RESUME_PDF_URL = '/resume/resume.pdf'
 const RESUME_WEBP_URL = RESUME_IMAGE_ID ? getCloudflareImageUrl(RESUME_IMAGE_ID, {
   width: 700,
   height: 906,
@@ -16,6 +15,7 @@ const RESUME_WEBP_URL = RESUME_IMAGE_ID ? getCloudflareImageUrl(RESUME_IMAGE_ID,
   quality: 100,
   fit: 'contain'
 }) : '/resume/resume.webp'
+const RESUME_PDF_URL = '/resume/resume.pdf'
 
 export function ResumeSection() {
   const [isHovered, setIsHovered] = useState(false)

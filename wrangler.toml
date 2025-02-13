@@ -1,6 +1,7 @@
 name = "yuubnet"
 compatibility_date = "2025-01-29"
 compatibility_flags = [ "nodejs_compat" ]
+pages_build_output_dir = ".vercel/output/static"
 
 [vars]
 ANALYTICS_WORKER_URL = "https://yuubnet-analytics.ipai-mc.workers.dev"
