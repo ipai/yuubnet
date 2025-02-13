@@ -61,8 +61,8 @@ export async function middleware(request: NextRequest) {
 
   const cspHeader = `
     default-src 'self';
-    script-src 'self' 'nonce-${nonce}' ${isDev ? "'unsafe-eval'" : ''} 'strict-dynamic' https://*.yuub.net https://yuub.net https://*.yuubnet.pages.dev https://*.cloudflare.com;
-    script-src-elem 'self' 'nonce-${nonce}' ${isDev ? "'unsafe-eval'" : ''} https://*.yuub.net https://yuub.net https://*.yuubnet.pages.dev https://*.cloudflare.com;
+    script-src 'self' 'unsafe-inline' 'nonce-${nonce}' ${isDev ? "'unsafe-eval'" : ''} 'strict-dynamic';
+    script-src-elem 'self' 'unsafe-inline' 'nonce-${nonce}' ${isDev ? "'unsafe-eval'" : ''} 'strict-dynamic';
     style-src 'self' 'unsafe-inline';
     img-src 'self' blob: data: ${process.env.NEXT_PUBLIC_ASSET_FETCH_WORKER_URL || ''};
     font-src 'self' data:;
