@@ -1,13 +1,14 @@
 {
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "pages:build": "next build && npx @cloudflare/next-on-pages",
     "start": "next start",
-    "test": "vitest --config vitest.config.ts",
-    "test:watch": "vitest watch --config vitest.config.ts",
-    "test:coverage": "vitest run --coverage --config vitest.config.ts",
+    "test": "vitest --config vitest.config.mts",
+    "test:watch": "vitest watch --config vitest.config.mts",
+    "test:coverage": "vitest run --coverage --config vitest.config.mts",
     "db:push": "prisma db push",
     "db:studio": "prisma studio"
   },
