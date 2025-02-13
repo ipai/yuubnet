@@ -53,22 +53,16 @@ async function logVisit(request: NextRequest): Promise<void> {
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next()
 
-  // Generate nonce for CSP
-  const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
-
   // Define CSP Header
   const isDev = process.env.NODE_ENV === 'development'
 
   // Add security headers
   const headers = response.headers
 
-  // Add nonce to response headers for Next.js to use
-  headers.set('x-nonce', nonce)
-
   const cspHeader = `
     default-src 'self';
-    script-src 'self' 'unsafe-eval' 'nonce-${nonce}' 'strict-dynamic';
     style-src 'self' 'unsafe-inline';
+    script-src 'self' 'unsafe-inline' 'unsafe-eval';
     img-src 'self' blob: data: ${process.env.NEXT_PUBLIC_ASSET_FETCH_WORKER_URL || ''};
     font-src 'self' data: https:;
     connect-src 'self' https:;
@@ -82,7 +76,6 @@ export async function middleware(request: NextRequest) {
 
   // Add CSP header
   headers.set('Content-Security-Policy', cspHeader)
-  headers.set('X-Nonce', nonce)
 
   // Add other security headers
   headers.set('X-Frame-Options', 'DENY')

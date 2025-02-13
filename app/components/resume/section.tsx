@@ -74,8 +74,7 @@ export function ResumeSection() {
               width={700}
               height={906}
               className="rounded-lg border border-neutral-200 dark:border-neutral-800"
-              priority={false}
-              loading="lazy"
+              priority={true}
               unoptimized={true}
             />
           </a>
