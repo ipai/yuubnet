@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  optimizeScripts: true,
   productionBrowserSourceMaps: true,
   swcMinify: true,
   compiler: {

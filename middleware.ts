@@ -61,11 +61,11 @@ export async function middleware(request: NextRequest) {
 
   const cspHeader = `
     default-src 'self';
-    script-src 'self' 'unsafe-inline' 'nonce-${nonce}' ${isDev ? "'unsafe-eval'" : ''} 'strict-dynamic';
-    script-src-elem 'self' 'unsafe-inline' 'nonce-${nonce}' ${isDev ? "'unsafe-eval'" : ''} 'strict-dynamic';
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' 'nonce-${nonce}';
     style-src 'self' 'unsafe-inline';
     img-src 'self' blob: data: ${process.env.NEXT_PUBLIC_ASSET_FETCH_WORKER_URL || ''};
-    font-src 'self' data:;
+    font-src 'self' data: https:;
+    connect-src 'self' https:;
     object-src 'none';
     base-uri 'self';
     form-action 'self';

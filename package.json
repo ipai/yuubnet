@@ -3,6 +3,7 @@
   "type": "module",
   "pnpm": {
     "overrides": {
+      "debug": ">=4.3.1",
       "path-to-regexp": "^6.3.0",
       "semver": ">=7.5.2",
       "tar": ">=6.2.1",
