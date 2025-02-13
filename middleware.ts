@@ -106,12 +106,22 @@ export async function middleware(request: NextRequest) {
   // Add CSP header
   headers.set('Content-Security-Policy', cspHeader)
 
-  // Add other security headers
+  // Add security headers
   headers.set('X-Frame-Options', 'DENY')
   headers.set('X-Content-Type-Options', 'nosniff')
   headers.set('X-XSS-Protection', '1; mode=block')
   headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
   headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), interest-cohort=()')
+  
+  // Add HSTS header (strict HTTPS enforcement)
+  // max-age=63072000 is 2 years
+  headers.set(
+    'Strict-Transport-Security',
+    'max-age=63072000; includeSubDomains; preload'
+  )
+
+  // Add COOP header (prevent window opener attacks)
+  headers.set('Cross-Origin-Opener-Policy', 'same-origin')
 
   // Check if path should be excluded from logging
   const path = request.nextUrl.pathname
