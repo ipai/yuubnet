@@ -8,7 +8,7 @@ export function Copyright() {
   useEffect(() => {
     const checkScroll = () => {
       const scrolledToBottom = 
-        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 10
       setIsVisible(scrolledToBottom)
     }
 
