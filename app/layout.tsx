@@ -9,6 +9,7 @@ import { ThemeProvider } from '@/app/components/theme/theme-provider'
 import { ThemeToggle } from '@/app/components/theme/theme-toggle'
 import { Copyright } from '@/app/components/copyright'
 
+
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   icons: {

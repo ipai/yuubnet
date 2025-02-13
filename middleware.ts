@@ -53,12 +53,39 @@ async function logVisit(request: NextRequest): Promise<void> {
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next()
 
+  // Generate nonce for CSP
+  const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
+
+  // Define CSP Header
+  const isDev = process.env.NODE_ENV === 'development'
+
+  const cspHeader = `
+    default-src 'self';
+    script-src 'self' 'nonce-${nonce}' ${isDev ? "'unsafe-eval'" : ''} 'strict-dynamic' 'unsafe-inline' https: http:;
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' blob: data:;
+    font-src 'self' data:;
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+    block-all-mixed-content;
+    upgrade-insecure-requests;
+  `.replace(/\s{2,}/g, ' ').trim()
+
   // Add security headers
   const headers = response.headers
+
+  // Add CSP header
+  headers.set('Content-Security-Policy', cspHeader)
+  headers.set('X-Nonce', nonce)
+
+  // Add other security headers
   headers.set('X-Frame-Options', 'DENY')
   headers.set('X-Content-Type-Options', 'nosniff')
+  headers.set('X-XSS-Protection', '1; mode=block')
   headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
-  headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()')
+  headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), interest-cohort=()')
 
   // Check if path should be excluded from logging
   const path = request.nextUrl.pathname
