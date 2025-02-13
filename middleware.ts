@@ -62,7 +62,7 @@ export async function middleware(request: NextRequest) {
   const cspHeader = `
     default-src 'self';
     style-src 'self' 'unsafe-inline';
-    script-src 'self' 'unsafe-inline' 'unsafe-eval';
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com;
     img-src 'self' blob: data: ${process.env.NEXT_PUBLIC_ASSET_FETCH_WORKER_URL || ''};
     font-src 'self' data: https:;
     connect-src 'self' https:;
