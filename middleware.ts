@@ -78,21 +78,30 @@ export async function middleware(request: NextRequest) {
   // Store the nonce in the response headers so Next.js can access it
   headers.set('x-nonce', nonce)
 
-  const cspHeader = `
-    default-src 'self';
-    style-src 'self' 'nonce-${nonce}';
-    style-src-attr 'unsafe-hashes' 'sha256-zlqnbDt84zf1iSefLU/ImC54isoprH/MRiVZGskwexk=';
-    script-src 'self' 'nonce-${nonce}' 'unsafe-eval' 'strict-dynamic';
-    img-src 'self' blob: data: ${process.env.NEXT_PUBLIC_ASSET_FETCH_WORKER_URL || ''};
-    font-src 'self' data: https:;
-    connect-src 'self' https:;
-    object-src 'none';
-    base-uri 'self';
-    form-action 'self';
-    frame-ancestors 'none';
-    block-all-mixed-content;
-    upgrade-insecure-requests;
-  `.replace(/\s{2,}/g, ' ').trim()
+  // Build CSP policies
+  const policies = {
+    'default-src': ["'self'"],
+    'style-src': [`'self'`, `'nonce-${nonce}'`],
+    'style-src-attr': ["'unsafe-hashes'", "'sha256-zlqnbDt84zf1iSefLU/ImC54isoprH/MRiVZGskwexk='"],
+    'script-src': [`'self'`, `'nonce-${nonce}'`, "'strict-dynamic'", 'http:', 'https:'],
+    'img-src': [`'self'`, 'blob:', 'data:', process.env.NEXT_PUBLIC_ASSET_FETCH_WORKER_URL || ''],
+    'font-src': [`'self'`, 'data:', 'https:'],
+    'connect-src': [`'self'`, 'https:'],
+    'object-src': ["'none'"],
+    'base-uri': [`'self'`],
+    'form-action': [`'self'`],
+    'frame-ancestors': ["'none'"],
+  }
+
+  // In dev we allow 'unsafe-eval', so HMR doesn't trigger the CSP
+  if (isDev) {
+    policies['script-src'].push("'unsafe-eval'")
+  }
+
+  const cspHeader = Object.entries(policies)
+    .map(([key, values]) => `${key} ${values.join(' ')};`)
+    .join(' ')
+    .concat(' block-all-mixed-content; upgrade-insecure-requests; require-trusted-types-for \'script\';')
 
   // Add CSP header
   headers.set('Content-Security-Policy', cspHeader)

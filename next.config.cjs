@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Configure webpack to use nonces
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.optimization.moduleIds = 'deterministic'
