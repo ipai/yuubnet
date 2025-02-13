@@ -1,5 +1,7 @@
 'use client'
 
+export const runtime = 'edge'
+
 import { ResumeSection } from '../components/resume/section'
 
 export default function Page() {
