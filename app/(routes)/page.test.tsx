@@ -1,6 +1,24 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import Page from './page'
+
+// Mock getAssetUrl
+vi.mock('@/app/lib/asset-url', () => ({
+  getAssetUrl: (path: string) => `/${path}`
+}))
+
+// Mock lazy-loaded components
+vi.mock('@/app/components/resume/download-link', () => ({
+  DownloadLink: ({ className }: { className?: string }) => (
+    <button className={className}>Download PDF</button>
+  )
+}))
+
+vi.mock('@/app/components/resume/description', () => ({
+  ResumeDescription: ({ id }: { id: string }) => (
+    <div id={id}>Resume Description</div>
+  )
+}))
 
 describe('Page', () => {
   it('renders the home section with correct scroll margin', () => {
