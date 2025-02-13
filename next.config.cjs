@@ -1,6 +1,26 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  optimizeScripts: true,
+  // Configure security headers
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on'
+          }
+        ]
+      }
+    ]
+  },
+  // Configure webpack to use nonces
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.optimization.moduleIds = 'deterministic'
+    }
+    return config
+  },
   productionBrowserSourceMaps: true,
   swcMinify: true,
   compiler: {

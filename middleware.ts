@@ -59,9 +59,15 @@ export async function middleware(request: NextRequest) {
   // Define CSP Header
   const isDev = process.env.NODE_ENV === 'development'
 
+  // Add security headers
+  const headers = response.headers
+
+  // Add nonce to response headers for Next.js to use
+  headers.set('x-nonce', nonce)
+
   const cspHeader = `
     default-src 'self';
-    script-src 'self' 'unsafe-inline' 'unsafe-eval' 'nonce-${nonce}';
+    script-src 'self' 'unsafe-eval' 'nonce-${nonce}' 'strict-dynamic';
     style-src 'self' 'unsafe-inline';
     img-src 'self' blob: data: ${process.env.NEXT_PUBLIC_ASSET_FETCH_WORKER_URL || ''};
     font-src 'self' data: https:;
@@ -73,9 +79,6 @@ export async function middleware(request: NextRequest) {
     block-all-mixed-content;
     upgrade-insecure-requests;
   `.replace(/\s{2,}/g, ' ').trim()
-
-  // Add security headers
-  const headers = response.headers
 
   // Add CSP header
   headers.set('Content-Security-Policy', cspHeader)
