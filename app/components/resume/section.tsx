@@ -75,7 +75,7 @@ export function ResumeSection() {
               height={906}
               className="rounded-lg border border-neutral-200 dark:border-neutral-800"
               priority={true}
-              unoptimized={true}
+              unoptimized={false}
             />
           </a>
           <div className="mt-4 text-center">

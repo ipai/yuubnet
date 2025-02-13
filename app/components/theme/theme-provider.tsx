@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState } from 'react'
+import { useNonce } from '../nonce-provider'
 
 type Theme = 'dark' | 'light'
 
@@ -12,6 +13,7 @@ type ThemeContextType = {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const nonce = useNonce()
   const [theme, setTheme] = useState<Theme>('light')
 
   useEffect(() => {

@@ -1,19 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Configure security headers
-  async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'X-DNS-Prefetch-Control',
-            value: 'on'
-          }
-        ]
-      }
-    ]
-  },
   // Configure webpack to use nonces
   webpack: (config, { isServer }) => {
     if (!isServer) {

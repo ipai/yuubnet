@@ -8,6 +8,7 @@ import { baseUrl } from './(metadata)/sitemap'
 import { ThemeProvider } from '@/app/components/theme/theme-provider'
 import { ThemeToggle } from '@/app/components/theme/theme-toggle'
 import { Copyright } from '@/app/components/copyright'
+import { NonceServer } from './components/nonce-server'
 
 
 export const metadata: Metadata = {
@@ -60,6 +61,7 @@ export default function RootLayout({
       )}
     >
       <body className="antialiased min-h-full bg-white dark:bg-[#111] text-black dark:text-white transition-colors duration-150 m-0 overflow-x-hidden">
+        <NonceServer>
         <ThemeProvider>
           <header className="fixed top-0 left-0 right-0 bg-white/80 dark:bg-[#111]/80 backdrop-blur-sm z-50 border-b border-gray-200 dark:border-gray-800">
             <div className="max-w-xl lg:max-w-4xl mx-auto px-8 md:px-12 py-4 flex justify-start">
@@ -73,6 +75,7 @@ export default function RootLayout({
           </main>
           <ThemeToggle />
         </ThemeProvider>
+        </NonceServer>
       </body>
     </html>
   )
