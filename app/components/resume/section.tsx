@@ -76,6 +76,7 @@ export function ResumeSection() {
               className="rounded-lg border border-neutral-200 dark:border-neutral-800"
               priority={false}
               loading="lazy"
+              unoptimized={true}
             />
           </a>
           <div className="mt-4 text-center">

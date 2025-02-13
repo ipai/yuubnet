@@ -14,7 +14,7 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: process.env.ASSET_FETCH_WORKER_URL?.replace(/^https?:\/\//, ''),
-        pathname: '/resume/**',
+        pathname: '/**',
       },
     ],
   },
