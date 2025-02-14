@@ -43,10 +43,8 @@ export default {
     headers.set('cache-control', 'public, max-age=31536000') // Cache for 1 year
     headers.set('access-control-allow-methods', 'GET, HEAD, OPTIONS')
     
-    // Set content-disposition based on file type
-    if (extension === 'pdf') {
-      headers.set('content-disposition', `attachment; filename="${key.split('/').pop()}"`)
-    } else if (extension && ['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'].includes(extension)) {
+    // Set content-disposition to inline for PDFs and images
+    if (extension && ['pdf', 'png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'].includes(extension)) {
       headers.set('content-disposition', 'inline')
     }
     
