@@ -4,5 +4,5 @@ compatibility_flags = [ "nodejs_compat" ]
 pages_build_output_dir = ".vercel/output/static"
 
 [vars]
-NEXT_PUBLIC_ANALYTICS_WORKER_URL = "https://yuubnet-analytics.ipai-mc.workers.dev"
-NEXT_PUBLIC_ASSET_FETCH_WORKER_URL = "https://yuubnet-asset-fetch.ipai-mc.workers.dev"
+NEXT_PUBLIC_ANALYTICS_WORKER_URL = "https://analytics.yuub.net"
+NEXT_PUBLIC_ASSET_FETCH_WORKER_URL = "https://blob-cdn.yuub.net"
