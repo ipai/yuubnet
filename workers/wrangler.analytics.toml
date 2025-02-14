@@ -5,6 +5,11 @@ main = "analytics.ts"
 # Enable necessary features for Prisma Edge
 compatibility_flags = ["nodejs_compat"]
 
+# Custom domain configuration
+routes = [
+  { pattern = "analytics.yuub.net", custom_domain = true }
+]
+
 [[d1_databases]]
 binding = "DB"
 database_name = "yuubnet-analytics"

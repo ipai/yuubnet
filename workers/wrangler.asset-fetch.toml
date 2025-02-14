@@ -2,6 +2,11 @@ name = "yuubnet-asset-fetch"
 compatibility_date = "2024-02-08"
 main = "asset-fetch.ts"
 
+# Custom domain configuration
+routes = [
+  { pattern = "blob-cdn.yuub.net", custom_domain = true }
+]
+
 [[r2_buckets]]
 binding = 'BUCKET'
 bucket_name = 'frontend-assets'

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, act } from '@testing-library/react'
 import Page from './page'
 
 // Mock getAssetUrl
@@ -21,9 +21,13 @@ vi.mock('@/app/components/resume/description', () => ({
 }))
 
 describe('Page', () => {
-  it('renders the home section with correct scroll margin', () => {
-    const { container } = render(<Page />)
-    const homeSection = container.querySelector('#home')
+  it('renders the home section with correct scroll margin', async () => {
+    let container: HTMLElement
+    await act(async () => {
+      const result = render(<Page />)
+      container = result.container
+    })
+    const homeSection = container!.querySelector('#home')
     expect(homeSection).toHaveClass('scroll-mt-24')
   })
 

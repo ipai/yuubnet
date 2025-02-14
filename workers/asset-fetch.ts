@@ -23,29 +23,10 @@ const MIME_TYPES: { [key: string]: string } = {
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url)
-    const origin = request.headers.get('origin')
-    
-    // Add CORS headers to all responses
-    const corsHeaders = {
-      'Access-Control-Allow-Origin': origin || '*',
-      'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Max-Age': '86400',
-    }
-    
-    // Handle preflight requests
-    if (request.method === 'OPTIONS') {
-      return new Response(null, {
-        headers: corsHeaders,
-      })
-    }
-    
     const key = url.pathname.slice(1) // Remove leading slash
+
     if (!key) {
-      return new Response('Not Found', { 
-        status: 404,
-        headers: corsHeaders
-      })
+      return new Response('Not Found', { status: 404 })
     }
 
     const extension = key.split('.').pop()?.toLowerCase()
@@ -53,26 +34,26 @@ export default {
 
     const object = await env.BUCKET.get(key)
     if (!object) {
-      return new Response('Not Found', { 
-        status: 404,
-        headers: corsHeaders
-      })
+      return new Response('Not Found', { status: 404 })
     }
 
-    const headers = new Headers(corsHeaders)
-    headers.set('content-type', mimeType)
-    headers.set('cache-control', 'public, max-age=31536000') // Cache for 1 year
-    
-    // Set content-disposition to inline for PDFs and images
-    if (extension && ['pdf', 'png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'].includes(extension)) {
-      headers.set('content-disposition', 'inline')
-    }
-    
-    // Handle preflight requests
-    if (request.method === 'OPTIONS') {
-      return new Response(null, { headers })
-    }
-    
-    return new Response(object.body, { headers })
+    // Set disposition based on file type
+    const disposition = extension && ['pdf', 'png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'].includes(extension)
+      ? 'inline'
+      : 'attachment'
+
+    return new Response(object.body, {
+      headers: {
+        'content-type': mimeType,
+        'content-disposition': disposition,
+        'cache-control': 'public, max-age=31536000',
+        'access-control-allow-origin': '*',
+        'access-control-allow-methods': 'GET, HEAD, OPTIONS',
+        'access-control-allow-headers': 'Content-Type, Range',
+        'cross-origin-resource-policy': 'cross-origin',
+        'cross-origin-embedder-policy': 'credentialless',
+        'vary': 'Origin'
+      }
+    })
   }
 }

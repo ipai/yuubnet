@@ -20,11 +20,9 @@ describe('SocialIcons', () => {
     expect(linkedinLink).toHaveAttribute('target', '_blank')
     expect(linkedinLink).toHaveAttribute('rel', 'noopener noreferrer')
 
-    // Check Email link
-    const emailLink = screen.getByRole('link', { name: 'Send email' })
-    expect(emailLink).toHaveAttribute('href', 'mailto:ita@yuub.net')
-    expect(emailLink).toHaveAttribute('target', '_blank')
-    expect(emailLink).toHaveAttribute('rel', 'noopener noreferrer')
+    // Check Email button
+    const emailButton = screen.getByRole('button', { name: 'Copy email address' })
+    expect(emailButton).toBeInTheDocument()
   })
 
   it('renders icons with correct styling', () => {
