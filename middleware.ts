@@ -83,7 +83,7 @@ export async function middleware(request: NextRequest) {
     'default-src': ["'self'"],
     'style-src': [`'self'`, `'nonce-${nonce}'`],
     'style-src-attr': [`'self'`, "'unsafe-hashes'", "'sha256-zlqnbDt84zf1iSefLU/ImC54isoprH/MRiVZGskwexk='"],
-    'script-src': [`'self'`, `'nonce-${nonce}'`, "'strict-dynamic'", 'http:', 'https:'],
+    'script-src': [`'self'`, `'nonce-${nonce}'`, "'unsafe-inline'", "'strict-dynamic'", 'http:', 'https:'],
     'img-src': [`'self'`, 'blob:', 'data:', process.env.NEXT_PUBLIC_ASSET_FETCH_WORKER_URL || ''],
     'font-src': [`'self'`, 'data:', 'https:'],
     'connect-src': [`'self'`, 'https:'],
