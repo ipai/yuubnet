@@ -2,9 +2,7 @@
 
 const ALLOWED_ORIGINS = [
   'https://yuub.net',
-  'https://www.yuub.net',
-  // Add development URLs if needed
-  ...(process.env.NODE_ENV === 'development' ? ['http://localhost:3000'] : [])
+  'https://www.yuub.net'
 ];
 
 interface Env {
