@@ -125,14 +125,10 @@ export async function middleware(request: NextRequest) {
 
   // Add CORS headers
   const origin = request.headers.get('origin')
-  const baseUrl = process.env.BASE_URL || 'http://localhost:3000'
-  const baseHost = new URL(baseUrl).host
-  
-  if (origin && (
-    origin === baseUrl || // Exact match
-    origin === `https://${baseHost}` || // HTTPS version
-    origin.endsWith(`-${baseHost}`) || // Preview deployments
-    origin === 'http://localhost:3000' // Local development
+  if (origin && ALLOWED_REFERRERS.some(ref => 
+    origin === `https://${ref}` || // Production URLs
+    origin.endsWith(`-${ref}`) || // Preview deployments like xyz-yuubnet.pages.dev
+    (ref === 'localhost' && origin === 'http://localhost:3000') // Local development
   )) {
     headers.set('Access-Control-Allow-Origin', origin)
     headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')

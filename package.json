@@ -15,9 +15,8 @@
   },
   "scripts": {
     "dev": "next dev",
-    "generate-env": "node scripts/generate-env.js",
     "build": "next build",
-    "pages:build": "pnpm run generate-env && next build && npx @cloudflare/next-on-pages",
+    "pages:build": "next build && npx @cloudflare/next-on-pages",
     "start": "next start",
     "test": "vitest --config vitest.config.mts",
     "test:watch": "vitest watch --config vitest.config.mts",
