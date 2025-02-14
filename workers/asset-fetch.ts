@@ -23,44 +23,45 @@ const MIME_TYPES: { [key: string]: string } = {
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url)
+    const origin = request.headers.get('origin')
+    
+    // Add CORS headers to all responses
+    const corsHeaders = {
+      'Access-Control-Allow-Origin': origin || '*',
+      'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Max-Age': '86400',
+    }
+    
+    // Handle preflight requests
+    if (request.method === 'OPTIONS') {
+      return new Response(null, {
+        headers: corsHeaders,
+      })
+    }
+    
     const key = url.pathname.slice(1) // Remove leading slash
-
     if (!key) {
-      return new Response('Not Found', { status: 404 })
+      return new Response('Not Found', { 
+        status: 404,
+        headers: corsHeaders
+      })
     }
 
     const extension = key.split('.').pop()?.toLowerCase()
     const mimeType = extension ? MIME_TYPES[extension] : 'application/octet-stream'
 
     const object = await env.BUCKET.get(key)
-
     if (!object) {
-      return new Response('Not Found', { status: 404 })
+      return new Response('Not Found', { 
+        status: 404,
+        headers: corsHeaders
+      })
     }
 
-    const headers = new Headers()
+    const headers = new Headers(corsHeaders)
     headers.set('content-type', mimeType)
     headers.set('cache-control', 'public, max-age=31536000') // Cache for 1 year
-    
-    // Add CORS headers
-    const origin = request.headers.get('origin')
-    
-    // Check if origin is allowed
-    const isAllowedOrigin = origin && (
-      // Production URLs
-      ['https://yuub.net', 'https://www.yuub.net'].includes(origin) ||
-      // Preview deployments
-      origin === 'https://yuubnet.pages.dev' ||
-      origin.endsWith('-yuubnet.pages.dev') ||
-      // Local development
-      origin === 'http://localhost:3000'
-    )
-    
-    if (isAllowedOrigin) {
-      headers.set('access-control-allow-origin', origin)
-    }
-    headers.set('access-control-allow-methods', 'GET, HEAD, OPTIONS')
-    headers.set('access-control-allow-headers', 'content-type')
     
     // Set content-disposition to inline for PDFs and images
     if (extension && ['pdf', 'png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'].includes(extension)) {
