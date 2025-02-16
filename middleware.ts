@@ -144,9 +144,19 @@ export async function middleware(request: NextRequest) {
     return response
   }
 
-  // Check user agent
+  // Check if this is a Shields.io monitoring request
+  if (request.method === 'HEAD' && 
+      // Shields.io uses a 3.5s timeout and only checks status
+      request.headers.get('accept') === '*/*' && 
+      !request.headers.get('accept-encoding') && 
+      !request.headers.get('if-modified-since') && 
+      !request.headers.get('if-none-match')) {
+    // Return a dummy 200 response for Shields.io
+    return new NextResponse(null, { status: 200 })
+  }
+
+  // Check user agent for other requests
   const userAgent = request.headers.get('user-agent')?.toLowerCase() || ''
-  // Only block if it's a known bot/crawler
   if (userAgent && BLOCKED_USER_AGENTS.some(bot => userAgent.includes(bot.toLowerCase()))) {
     return new NextResponse('Access Denied', { status: 403 })
   }
