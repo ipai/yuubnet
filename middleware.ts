@@ -22,13 +22,6 @@ export const BLOCKED_USER_AGENTS = [
   'W3C_Validator'
 ]
 
-export const ALLOWED_REFERRERS = [
-  'localhost',
-  'yuubnet.pages.dev',
-  'yuub.net',
-  'www.yuub.net'
-]
-
 interface Visitor {
   timestamp: Date
   ip: string
@@ -49,15 +42,7 @@ async function logVisit(request: NextRequest): Promise<void> {
   const referer = request.headers.get('referer') || 'direct'
 
   try {
-    const visitor: Visitor = {
-      timestamp,
-      ip,
-      userAgent,
-      path,
-      referer
-    }
-
-    await logAnalytics(visitor)
+    await logAnalytics({ timestamp, ip, userAgent, path, referer })
   } catch (error) {
     console.error('Failed to log visit:', error)
   }
@@ -65,17 +50,11 @@ async function logVisit(request: NextRequest): Promise<void> {
 
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next()
-
-  // Define CSP Header
+  const headers = response.headers
   const isDev = process.env.NODE_ENV === 'development'
 
-  // Add security headers
-  const headers = response.headers
-
-  // Generate a random nonce for this request
+  // Generate CSP nonce
   const nonce = crypto.randomUUID()
-
-  // Store the nonce in the response headers so Next.js can access it
   headers.set('x-nonce', nonce)
 
   // Build CSP policies
@@ -83,7 +62,7 @@ export async function middleware(request: NextRequest) {
     'default-src': ["'self'"],
     'style-src': [`'self'`, `'nonce-${nonce}'`],
     'style-src-attr': [`'self'`, "'unsafe-hashes'", "'sha256-zlqnbDt84zf1iSefLU/ImC54isoprH/MRiVZGskwexk='"],
-    'script-src': [`'self'`, `'nonce-${nonce}'`, "'unsafe-inline'", "'strict-dynamic'", 'http:', 'https:'],
+    'script-src': [`'self'`, `'nonce-${nonce}'`, "'unsafe-inline'", "'strict-dynamic'", 'http:', 'https:', ...(isDev ? ["'unsafe-eval'"] : [])],
     'img-src': [`'self'`, 'blob:', 'data:', process.env.NEXT_PUBLIC_ASSET_FETCH_WORKER_URL || ''],
     'font-src': [`'self'`, 'data:', 'https:'],
     'connect-src': [`'self'`, 'https:'],
@@ -93,95 +72,43 @@ export async function middleware(request: NextRequest) {
     'frame-ancestors': ["'none'"],
   }
 
-  // In dev we allow 'unsafe-eval', so HMR doesn't trigger the CSP
-  if (isDev) {
-    policies['script-src'].push("'unsafe-eval'")
-  }
-
-  const cspHeader = Object.entries(policies)
-    .map(([key, values]) => `${key} ${values.join(' ')};`)
-    .join(' ')
-    .concat(' block-all-mixed-content; upgrade-insecure-requests;')
-
-  // Add CSP header
-  headers.set('Content-Security-Policy', cspHeader)
-
-  // Add security headers
+  // Set security headers
+  headers.set('Content-Security-Policy', 
+    Object.entries(policies)
+      .map(([key, values]) => `${key} ${values.join(' ')};`)
+      .join(' ')
+      .concat(' block-all-mixed-content; upgrade-insecure-requests;')
+  )
   headers.set('X-Frame-Options', 'DENY')
   headers.set('X-Content-Type-Options', 'nosniff')
   headers.set('X-XSS-Protection', '1; mode=block')
   headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
   headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), interest-cohort=()')
-  
-  // Add HSTS header (strict HTTPS enforcement)
-  // max-age=63072000 is 2 years
-  headers.set(
-    'Strict-Transport-Security',
-    'max-age=63072000; includeSubDomains; preload'
-  )
-
-  // Add COOP header (prevent window opener attacks)
+  headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload')
   headers.set('Cross-Origin-Opener-Policy', 'same-origin')
 
-  // Add CORS headers
+  // Set CORS headers
   const origin = request.headers.get('origin')
-  if (origin && ALLOWED_REFERRERS.some(ref => 
-    origin === `https://${ref}` || // Production URLs
-    origin.endsWith(`-${ref}`) || // Preview deployments like xyz-yuubnet.pages.dev
-    (ref === 'localhost' && origin === 'http://localhost:3000') // Local development
+  if (origin && (
+    (isDev && origin === 'http://localhost:3000') ||
+    origin === 'https://yuub.net' || 
+    origin.endsWith('-yuubnet.pages.dev')
   )) {
     headers.set('Access-Control-Allow-Origin', origin)
     headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
     headers.set('Access-Control-Allow-Headers', 'Content-Type')
   }
 
-  // Check if path should be excluded from logging
+  // Skip logging for static assets
   const path = request.nextUrl.pathname
-  if (path.startsWith('/_next/static') || 
-      path.startsWith('/_next/image') || 
-      path === '/favicon.ico' || 
-      path.match(/\.(svg|png|jpg|jpeg|gif|webp)$/)) {
+  if (path.startsWith('/_next/') || path === '/favicon.ico' || path.match(/\.(svg|png|jpg|jpeg|gif|webp)$/)) {
     return response
   }
 
-  // Check if this is a Shields.io monitoring request
-  if (request.method === 'HEAD' && 
-      // Shields.io uses a 3.5s timeout and only checks status
-      request.headers.get('accept') === '*/*' && 
-      !request.headers.get('accept-encoding') && 
-      !request.headers.get('if-modified-since') && 
-      !request.headers.get('if-none-match')) {
-    // Return a dummy 200 response for Shields.io
-    return new NextResponse(null, { status: 200 })
-  }
-
-  // Check user agent for other requests
+  // Block known bots
   const userAgent = request.headers.get('user-agent')?.toLowerCase() || ''
   if (userAgent && BLOCKED_USER_AGENTS.some(bot => userAgent.includes(bot.toLowerCase()))) {
     return new NextResponse('Access Denied', { status: 403 })
-  }
-
-  // Basic rate limiting using headers
-  const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0] || 
-                  request.headers.get('x-real-ip') ||
-                  'unknown'
-  const requestsPerMinute = 60
-  
-  // You might want to implement proper rate limiting here using Redis or similar
-  // This is just a basic example using headers
-  headers.set('X-RateLimit-Limit', requestsPerMinute.toString())
-
-  // Check referrer for non-GET requests
-  if (request.method !== 'GET') {
-    const referrer = request.headers.get('referer') || ''
-    console.log('Method:', request.method)
-    console.log('Referrer:', referrer)
-    console.log('Allowed referrers:', ALLOWED_REFERRERS)
-    const isAllowed = ALLOWED_REFERRERS.some(allowed => referrer.startsWith(allowed))
-    console.log('Is allowed:', isAllowed)
-    if (!isAllowed) {
-      return new NextResponse('Invalid referrer', { status: 403 })
-    }
   }
 
   // Log the visit
