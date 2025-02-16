@@ -1,6 +1,8 @@
 # Yuub.net
 This is the source for my portfolio page, currently built with Next.js on Cloudflare Pages.
 
+https://img.shields.io/website?url=https%3A%2F%2Fyuub.net
+
 ## Deploy Pages
 ```bash
 pnpm run pages:build && \
