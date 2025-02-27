@@ -8,7 +8,8 @@
       "semver": ">=7.5.2",
       "tar": ">=6.2.1",
       "undici": ">=5.28.5",
-      "esbuild": ">=0.25.0"
+      "esbuild": ">=0.25.0",
+      "cookie": ">=0.7.0"
     },
     "onlyBuiltDependencies": [
       "esbuild"
