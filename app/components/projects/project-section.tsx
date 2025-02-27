@@ -24,8 +24,8 @@ const projects: Project[] = [
     longDescription: 'OTranscript leverages AI technology to transform audio content into highly accurate text that synchronizes with the audio playback. This makes it perfect for interviews, podcasts, lectures, and more. It maintains speaker distinctions and offers features for navigating, editing, and exporting transcripts.',
     githubUrl: 'https://github.com/ipai/otranscript',
     liveUrl: 'https://www.otranscript.app/',
-    imageUrl: '/projects/otranscript-bg.webp',
-    technologies: ['AI/LLM', 'Audio Processing', 'NPL', 'React', 'Next.js', 'Neon', 'Vercel Blob'],
+    imageUrl: '/projects/otranscript-banner.webp',
+    technologies: ['AI/LLM', 'Audio Processing', 'NPL', 'React', 'Next.js', 'Neon', 'Blob Store'],
     features: [
       'Real-time transcript synchronization with audio playback',
       'Speaker differentiation and labeling',
@@ -39,7 +39,7 @@ const projects: Project[] = [
     description: 'A project that collects metrics from personal projects and sends daily/weekly reports.',
     longDescription: 'Pingdom Come is a comprehensive monitoring solution designed to aggregate metrics from various personal projects. It collects data on performance, usage, and errors, then compiles this information into easily digestible daily and weekly reports. This allows project owners to quickly identify issues and track usage patterns across their application portfolio. (In Progress)',
     githubUrl: 'https://github.com/ipai/pingdom-come',
-    imageUrl: '/projects/pingdom-bg.webp',
+    imageUrl: '/projects/pingdom-banner.webp',
     technologies: ['Temporal', 'Metrics Collection', 'Observability', 'Analytics', 'Reporting', 'Monitoring', 'Anomaly Detection'],
     features: [
       'Unified dashboard for multiple project metrics',
@@ -55,9 +55,9 @@ const projects: Project[] = [
     description: 'A Chrome extension for downloading media content from websites.',
     longDescription: 'Brotwurst is a powerful Chrome extension that enables users to download various media types including videos, images, and audio from websites. It detects media elements on web pages and provides a convenient way to save them locally. The extension respects website terms of service and is designed for saving content for legitimate personal use.',
     githubUrl: 'https://github.com/ipai/brotwurst',
-    imageUrl: '/projects/brotwurst-bg.webp',
+    imageUrl: '/projects/brotwurst-banner.webp',
     imageRepeat: 'repeat-space',
-    technologies: ['Chrome Extension', 'JavaScript', 'Media Processing', 'Network Interception'],
+    technologies: ['Chrome Extension', 'JavaScript', 'Media Processing', 'DOM Manipulation', 'Network Interception'],
     features: [
       'Download videos and audio files',
       'One-click media detection on any website',
@@ -69,18 +69,17 @@ const projects: Project[] = [
   {
     title: 'Resume Pipeline',
     description: 'An automated pipeline for generating and publishing professional resumes in multiple formats.',
-    longDescription: 'Resume Pipeline is a tool that automates the process of creating, formatting, and publishing professional resumes. It uses a single source of truth for your resume data and generates multiple output formats including PDF, HTML, and plain text. The pipeline ensures consistent formatting and styling across all formats and simplifies the resume updating process.',
+    longDescription: 'Resume Pipeline is a tool that automates the process of creating, formatting, and publishing professional resumes. It uses a single source of truth for your resume data (LaTeX) and generates multiple output formats including PDF, WebP, and PNG. The pipeline ensures consistent formatting and styling across all formats and simplifies the resume updating process.',
     githubUrl: 'https://github.com/ipai/resume',
-    imageUrl: '/projects/resume-bg.webp',
+    imageUrl: '/projects/resume-banner.webp',
     imageRepeat: 'repeat',
     technologies: ['LaTeX', 'GitHub Actions', 'CI/CD', 'Docker', 'PDF Generation'],
     features: [
-      'Single source of truth for resume data',
+      'Single source of truth for resume data in LaTeX',
       'Multiple output formats (PDF, WebP, PNG)',
-      'Automated build and publishing',
+      'Automated build and publishing to CDN',
       'Version control for resume history',
       'Customizable templates and styling',
-      'Mobile-friendly responsive designs',
     ]
   }
 ]
