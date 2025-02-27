@@ -9,6 +9,10 @@ const navItems = {
     name: 'home',
     id: 'top-tracker'
   },
+  '/projects': {
+    name: 'projects',
+    id: 'projects'
+  },
   '/resume': {
     name: 'resume',
     id: 'resume'

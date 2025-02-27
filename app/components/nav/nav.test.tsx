@@ -21,6 +21,10 @@ describe('Navbar', () => {
     const homeLink = screen.getByText('home')
     expect(homeLink).toHaveAttribute('href', '/')
     
+    // Check projects link
+    const projectsLink = screen.getByText('projects')
+    expect(projectsLink).toHaveAttribute('href', '/projects')
+    
     // Check resume link
     const resumeLink = screen.getByText('resume')
     expect(resumeLink).toHaveAttribute('href', '/resume')
@@ -54,6 +58,10 @@ describe('Navbar', () => {
     resumeSection.id = 'resume'
     document.body.appendChild(resumeSection)
 
+    const projectsSection = document.createElement('div')
+    projectsSection.id = 'projects'
+    document.body.appendChild(projectsSection)
+
     render(<Navbar />)
 
     // Click resume link
@@ -70,8 +78,25 @@ describe('Navbar', () => {
     // Check if URL was updated
     expect(pushStateSpy).toHaveBeenCalledWith({}, '', window.location.pathname)
 
+    // Reset mocks
+    vi.clearAllMocks()
+
+    // Click projects link
+    const projectsLink = screen.getByText('projects')
+    fireEvent.click(projectsLink)
+
+    // Check if scrollIntoView was called again
+    expect(scrollIntoViewMock).toHaveBeenCalledWith({
+      behavior: 'smooth',
+      block: 'start'
+    })
+
+    // Check if URL was updated again
+    expect(pushStateSpy).toHaveBeenCalledWith({}, '', window.location.pathname)
+
     // Cleanup
     document.body.removeChild(resumeSection)
+    document.body.removeChild(projectsSection)
   })
 
   it('prevents default event behavior when clicking links', async () => {

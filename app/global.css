@@ -143,6 +143,16 @@ pre {
   scrollbar-width: none; /* Firefox */
 }
 
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
 /* Remove Safari input shadow on mobile */
 input[type='text'],
 input[type='email'] {

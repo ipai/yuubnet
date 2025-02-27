@@ -3,6 +3,7 @@
 export const runtime = 'edge'
 
 import { ResumeSection } from '../components/resume/section'
+import { ProjectSection } from '../components/projects/project-section'
 
 export default function Page() {
   return (
@@ -18,6 +19,7 @@ export default function Page() {
         </p>
       </section>
 
+      <ProjectSection />
       <ResumeSection />
     </div>
   )

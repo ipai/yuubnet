@@ -20,6 +20,11 @@ vi.mock('@/app/components/resume/description', () => ({
   )
 }))
 
+// Mock ProjectSection
+vi.mock('@/app/components/projects/project-section', () => ({
+  ProjectSection: () => <div>Projects Section</div>
+}))
+
 describe('Page', () => {
   it('renders the home section with correct scroll margin', async () => {
     let container: HTMLElement
