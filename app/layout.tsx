@@ -1,14 +1,14 @@
-import './global.css'
-import type { Metadata } from 'next'
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
-import { Navbar } from './components/nav/nav'
-import Footer from './components/footer'
-import { baseUrl } from './(metadata)/sitemap'
+import { Copyright } from '@/app/components/copyright'
 import { ThemeProvider } from '@/app/components/theme/theme-provider'
 import { ThemeToggle } from '@/app/components/theme/theme-toggle'
-import { Copyright } from '@/app/components/copyright'
+import { GeistMono } from 'geist/font/mono'
+import { GeistSans } from 'geist/font/sans'
+import type { Metadata } from 'next'
+import { baseUrl } from './(metadata)/sitemap'
+import Footer from './components/footer'
+import { Navbar } from './components/nav/nav'
 import { NonceServer } from './components/nonce/nonce-server'
+import './styles/globals.css'
 
 
 export const metadata: Metadata = {

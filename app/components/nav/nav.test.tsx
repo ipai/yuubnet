@@ -35,8 +35,8 @@ describe('Navbar', () => {
     
     const links = screen.getAllByRole('link')
     links.forEach(link => {
-      // Check if link has the navLink class from common.module.css
-      expect(link.className).toContain('navLink')
+      // Check if link has the nav-link class
+      expect(link.className).toContain('nav-link')
     })
   })
 

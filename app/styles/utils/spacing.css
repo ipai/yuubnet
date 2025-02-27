@@ -1,0 +1,47 @@
+.container {
+  @apply mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.section {
+  @apply py-12 md:py-16;
+}
+
+.panel {
+  @apply rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 backdrop-blur-sm shadow-lg;
+}
+
+.gap-sm {
+  @apply gap-2;
+}
+
+.gap-md {
+  @apply gap-4;
+}
+
+.gap-lg {
+  @apply gap-6;
+}
+
+.m-sm {
+  @apply m-2;
+}
+
+.m-md {
+  @apply m-4;
+}
+
+.m-lg {
+  @apply m-6;
+}
+
+.p-sm {
+  @apply p-2;
+}
+
+.p-md {
+  @apply p-4;
+}
+
+.p-lg {
+  @apply p-6;
+}

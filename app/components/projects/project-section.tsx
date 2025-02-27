@@ -1,9 +1,6 @@
 'use client'
 
-import { useState, lazy, Suspense, useRef, useEffect, useCallback } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import commonStyles from '../common.module.css'
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 
 // Lazy load the project details component
 const ProjectDetails = lazy(() => import('./project-details').then(mod => ({ default: mod.ProjectDetails })))
@@ -15,6 +12,7 @@ export type Project = {
   githubUrl: string
   liveUrl?: string
   imageUrl?: string
+  imageRepeat?: 'no-repeat' | 'repeat' | 'repeat-x' | 'repeat-y' | 'repeat-space'
   technologies: string[]
   features?: string[]
 }
@@ -26,7 +24,7 @@ const projects: Project[] = [
     longDescription: 'OTranscript leverages AI technology to transform audio content into highly accurate text that synchronizes with the audio playback. This makes it perfect for interviews, podcasts, lectures, and more. It maintains speaker distinctions and offers features for navigating, editing, and exporting transcripts.',
     githubUrl: 'https://github.com/ipai/otranscript',
     liveUrl: 'https://www.otranscript.app/',
-    imageUrl: '/projects/otranscript-bg.jpg',
+    imageUrl: '/projects/otranscript-bg.webp',
     technologies: ['AI/LLM', 'Audio Processing', 'NPL', 'React', 'Next.js', 'Neon', 'Vercel Blob'],
     features: [
       'Real-time transcript synchronization with audio playback',
@@ -57,7 +55,8 @@ const projects: Project[] = [
     description: 'A Chrome extension for downloading media content from websites.',
     longDescription: 'Brotwurst is a powerful Chrome extension that enables users to download various media types including videos, images, and audio from websites. It detects media elements on web pages and provides a convenient way to save them locally. The extension respects website terms of service and is designed for saving content for legitimate personal use.',
     githubUrl: 'https://github.com/ipai/brotwurst',
-    imageUrl: '/projects/brotwurst-bg.png',
+    imageUrl: '/projects/brotwurst-bg.webp',
+    imageRepeat: 'repeat-space',
     technologies: ['Chrome Extension', 'JavaScript', 'Media Processing', 'Network Interception'],
     features: [
       'Download videos and audio files',
@@ -72,7 +71,8 @@ const projects: Project[] = [
     description: 'An automated pipeline for generating and publishing professional resumes in multiple formats.',
     longDescription: 'Resume Pipeline is a tool that automates the process of creating, formatting, and publishing professional resumes. It uses a single source of truth for your resume data and generates multiple output formats including PDF, HTML, and plain text. The pipeline ensures consistent formatting and styling across all formats and simplifies the resume updating process.',
     githubUrl: 'https://github.com/ipai/resume',
-    imageUrl: '/projects/resume-bg.png',
+    imageUrl: '/projects/resume-bg.webp',
+    imageRepeat: 'repeat',
     technologies: ['LaTeX', 'GitHub Actions', 'CI/CD', 'Docker', 'PDF Generation'],
     features: [
       'Single source of truth for resume data',
@@ -148,7 +148,7 @@ export function ProjectSection() {
   return (
     <section id="projects" className="scroll-mt-24">
       {/* Title */}
-      <h2 className="font-semibold text-2xl tracking-tighter mb-6">Personal Projects</h2>
+      <h2 className="font-semibold text-2xl tracking-tighter mb-6">Projects</h2>
       
       {/* Horizontally scrollable project container with side navigation arrows */}
       <div className="relative mx-10 lg:mx-12">
@@ -157,7 +157,12 @@ export function ProjectSection() {
           onClick={() => scroll('left')}
           disabled={scrollPosition <= 0}
           aria-label="Scroll left"
-          className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[calc(100%-4px)] z-10 bg-white dark:bg-black bg-opacity-80 dark:bg-opacity-80 rounded-full p-2 shadow-md border border-gray-200 dark:border-gray-800 hover:bg-opacity-100 dark:hover:bg-opacity-100 transition-all ${scrollPosition <= 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:scale-110'}`}
+          className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[calc(100%-4px)] z-10 
+            bg-white dark:bg-gray-900 bg-opacity-80 dark:bg-opacity-80 
+            rounded-full p-2 shadow-md 
+            border border-gray-200 dark:border-gray-700 
+            hover:bg-opacity-100 dark:hover:bg-opacity-100 transition-all 
+            ${scrollPosition <= 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:scale-110'}`}
         >
           <svg 
             xmlns="http://www.w3.org/2000/svg"
@@ -179,7 +184,12 @@ export function ProjectSection() {
           onClick={() => scroll('right')}
           disabled={scrollPosition >= maxScroll}
           aria-label="Scroll right"
-          className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-[calc(100%-4px)] z-10 bg-white dark:bg-black bg-opacity-80 dark:bg-opacity-80 rounded-full p-2 shadow-md border border-gray-200 dark:border-gray-800 hover:bg-opacity-100 dark:hover:bg-opacity-100 transition-all ${scrollPosition >= maxScroll ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:scale-110'}`}
+          className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-[calc(100%-4px)] z-10 
+            bg-white dark:bg-gray-900 bg-opacity-80 dark:bg-opacity-80 
+            rounded-full p-2 shadow-md 
+            border border-gray-200 dark:border-gray-700 
+            hover:bg-opacity-100 dark:hover:bg-opacity-100 transition-all 
+            ${scrollPosition >= maxScroll ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:scale-110'}`}
         >
           <svg 
             xmlns="http://www.w3.org/2000/svg"
@@ -207,35 +217,42 @@ export function ProjectSection() {
           {projects.map((project) => (
             <div 
               key={project.title} 
-              className={`${commonStyles.panel} p-5 flex flex-col flex-shrink-0 w-[260px] h-[320px] transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-neutral-300 dark:hover:border-neutral-700 cursor-pointer snap-start`}
+              className="project-card w-[260px] h-[320px]"
               onClick={() => openProjectDetails(project)}
+              style={project.imageUrl ? {
+                backgroundImage: `url(${project.imageUrl})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: project.imageRepeat || 'no-repeat'
+              } : undefined}
             >
-              <h3 className="text-xl font-medium mb-2">{project.title}</h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-4 flex-grow text-sm">{project.description}</p>
+              <h3 className="text-xl font-medium mb-2 text-gray-900 dark:text-gray-100">
+                {project.title}
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4 flex-grow text-sm">
+                {project.description}
+              </p>
               <div className="mb-4">
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.slice(0, 3).map((tech) => (
                     <span 
                       key={tech} 
-                      className="px-2 py-1 text-xs rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300"
+                      className="tech-tag"
                     >
                       {tech}
                     </span>
                   ))}
                   {project.technologies.length > 3 && (
-                    <span className="px-2 py-1 text-xs rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
+                    <span className="tech-tag">
                       +{project.technologies.length - 3} more
                     </span>
                   )}
                 </div>
               </div>
-              <div 
-                className="flex justify-center items-center"
-                onClick={(e) => e.stopPropagation()} // Prevent card click when clicking the button
-              >
+              <div className="flex justify-center items-center">
                 <button 
                   aria-label="View details" 
-                  className={`${commonStyles.textButton} flex items-center hover:underline`}
+                  className="flex items-center text-gray-900 dark:text-gray-300 hover:text-gray-600 dark:hover:text-gray-100 hover:underline"
                 >
                   <span className="mr-1">View Details</span>
                   <svg 

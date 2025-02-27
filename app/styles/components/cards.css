@@ -1,0 +1,52 @@
+.project-card {
+  @apply p-5 flex flex-col flex-shrink-0 transition-all duration-300 
+    hover:shadow-xl hover:-translate-y-1 
+    bg-white dark:bg-neutral-900/50 
+    border border-neutral-200 dark:border-neutral-700
+    rounded-lg cursor-pointer snap-start
+    relative;
+  position: relative;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.95) 100%);
+  border-radius: 0.5rem;
+  z-index: 0;
+}
+
+.dark .project-card::before {
+  background: linear-gradient(to bottom, rgba(23,23,23,0.85) 0%, rgba(23,23,23,0.95) 100%);
+}
+
+.project-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.tech-tag {
+  @apply px-2 py-1 text-xs rounded-full 
+    bg-gray-100 dark:bg-gray-800 
+    text-gray-600 dark:text-gray-300;
+}
+
+.card {
+  @apply rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 p-4 shadow-sm transition-all;
+}
+
+.card-hover {
+  @apply hover:shadow-md hover:-translate-y-0.5 transition-all duration-200;
+}
+
+.card-header {
+  @apply text-lg font-medium mb-2 text-gray-900 dark:text-gray-100;
+}
+
+.card-content {
+  @apply text-gray-600 dark:text-gray-400;
+}

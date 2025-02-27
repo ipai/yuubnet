@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { ResumeSection } from './section'
 
 // Mock getAssetUrl
@@ -50,7 +50,7 @@ describe('ResumeSection', () => {
       const downloadButton = screen.getByText('Download PDF')
       expect(downloadButton).toBeInTheDocument()
       expect(downloadButton.tagName.toLowerCase()).toBe('button')
-      expect(downloadButton.className).toContain('textButton')
+      expect(downloadButton.className).toContain('text-button')
     })
   })
 

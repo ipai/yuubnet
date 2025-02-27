@@ -1,8 +1,6 @@
 'use client'
 
 import { useCallback } from 'react'
-import commonStyles from '../common.module.css'
-import styles from './nav.module.css'
 
 const navItems = {
   '/': {
@@ -41,16 +39,16 @@ export function Navbar() {
   }, [])
 
   return (
-    <nav className={styles.nav}>
-      <div className={styles.container}>
-        <div className={styles.linkContainer}>
+    <nav className="nav">
+      <div className="nav-container">
+        <div className="link-container">
           {Object.entries(navItems).map(([path, { name, id }]) => {
             return (
               <a
                 key={path}
                 href={path}
                 onClick={(e) => scrollToSection(e, id)}
-                className={commonStyles.navLink}
+                className="nav-link"
               >
                 {name}
               </a>

@@ -1,5 +1,5 @@
-import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
+import { describe, expect, it, vi } from 'vitest'
 
 // Instead of testing the full ProjectSection, we'll mock it to focus on just testing content rendering
 // This avoids issues with hooks in testing environment
@@ -7,7 +7,7 @@ vi.mock('../../components/projects/project-section', () => ({
   ProjectSection: function MockProjectSection() {
     return (
       <section id="projects">
-        <h2>Personal Projects</h2>
+        <h2>Projects</h2>
         <div className="project-cards">
           <div className="project-card">
             <h3>OTranscript</h3>
@@ -60,7 +60,7 @@ describe('ProjectSection', () => {
     render(<ProjectSection />)
     
     // Test heading
-    expect(screen.getByText('Personal Projects')).toBeInTheDocument()
+    expect(screen.getByText('Projects')).toBeInTheDocument()
     
     // Test project titles
     expect(screen.getByText('OTranscript')).toBeInTheDocument()

@@ -2,7 +2,6 @@
 
 import { useState, lazy, Suspense } from 'react'
 import Image from 'next/image'
-import commonStyles from '../common.module.css'
 import { getAssetUrl } from '@/app/lib/asset-url'
 
 // Lazy load components that aren't immediately visible
@@ -16,7 +15,7 @@ const RESUME_PDF_URL = getAssetUrl('resume/resume.pdf')
 function InfoIcon() {
   return (
     <svg
-      className={commonStyles.infoIcon}
+      className="info-icon"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -82,7 +81,7 @@ export function ResumeSection() {
             <Suspense fallback={null}>
               <DownloadLink
                 url={RESUME_PDF_URL}
-                className={commonStyles.textButton}
+                className="text-button"
               />
             </Suspense>
           </div>

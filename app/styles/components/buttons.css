@@ -1,0 +1,39 @@
+.icon-button {
+  @apply text-neutral-400 hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300 transition-colors;
+}
+
+.info-icon {
+  @apply text-neutral-400 hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300 transition-colors w-5 h-5 bg-white dark:bg-neutral-900 rounded-full p-0.5;
+}
+
+.close-icon {
+  @apply text-neutral-400 hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300 transition-colors w-4 h-4;
+}
+
+.text-button {
+  @apply text-neutral-600 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors cursor-pointer bg-transparent border-none p-0 m-0;
+}
+
+.close-button {
+  @apply absolute top-2 right-2 p-1 text-neutral-400 hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300 transition-colors;
+}
+
+.button {
+  @apply py-2 px-4 rounded-md text-sm font-medium;
+}
+
+.button-primary {
+  @apply bg-blue-500 hover:bg-blue-700 text-white;
+}
+
+.button-secondary {
+  @apply bg-gray-300 hover:bg-gray-400 text-gray-800;
+}
+
+.button-success {
+  @apply bg-green-500 hover:bg-green-700 text-white;
+}
+
+.button-danger {
+  @apply bg-red-500 hover:bg-red-700 text-white;
+}
