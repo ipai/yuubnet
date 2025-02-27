@@ -18,7 +18,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "pages:build": "next build && npx @cloudflare/next-on-pages",
+    "pages:build": "next build && pnpm dlx @cloudflare/next-on-pages@latest",
+    "pages:deploy": "pnpm dlx wrangler pages deploy .vercel/output/static",
+    "pages:dev": "pnpm dlx wrangler pages dev .vercel/output/static --compatibility-date=2025-01-29 --compatibility-flag=nodejs_compat",
     "start": "next start",
     "test": "vitest --config vitest.config.mts",
     "test:watch": "vitest watch --config vitest.config.mts",

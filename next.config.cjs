@@ -4,6 +4,10 @@ const nextConfig = {
     if (!isServer) {
       config.optimization.moduleIds = 'deterministic'
     }
+    
+    // Add cookie as external for Cloudflare Pages compatibility
+    config.externals = [...(config.externals || []), 'cookie'];
+    
     return config
   },
   productionBrowserSourceMaps: true,
