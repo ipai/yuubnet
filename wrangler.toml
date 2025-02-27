@@ -6,7 +6,3 @@ pages_build_output_dir = ".vercel/output/static"
 [vars]
 NEXT_PUBLIC_ANALYTICS_WORKER_URL = "https://analytics.yuub.net"
 NEXT_PUBLIC_ASSET_FETCH_WORKER_URL = "https://blob-cdn.yuub.net"
-
-# Mark cookie as external to fix the build error
-[build.bundle]
-external = ["cookie"]
