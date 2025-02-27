@@ -2,11 +2,48 @@
   @apply fixed inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4;
 }
 
+/* Background container */
+.bg-container {
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+/* Background image */
+.bg-image {
+  z-index: 0;
+}
+
+/* Background overlay */
+.bg-overlay {
+  z-index: 1;
+  background-color: white;
+  opacity: 0.9;
+}
+
+.dark .bg-overlay {
+  background-color: #171717;
+  opacity: 0.95;
+}
+
+/* Modal content */
 .modal-content {
   @apply max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-8 relative 
     bg-white dark:bg-neutral-900/50 
     border border-neutral-200 dark:border-neutral-700
     rounded-lg shadow-lg;
+}
+
+/* Modal content with background image */
+.modal-content.with-bg-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-content.with-bg-image::before,
+.modal-content.with-bg-image::after {
+  display: none;
 }
 
 .modal-header {

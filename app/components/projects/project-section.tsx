@@ -37,7 +37,7 @@ const projects: Project[] = [
   {
     title: 'Pingdom Come',
     description: 'A project that collects metrics from personal projects and sends daily/weekly reports.',
-    longDescription: 'Pingdom Come is a comprehensive monitoring solution designed to aggregate metrics from various personal projects. It collects data on performance, usage, and errors, then compiles this information into easily digestible daily and weekly reports. This allows project owners to quickly identify issues and track usage patterns across their application portfolio.',
+    longDescription: 'Pingdom Come is a comprehensive monitoring solution designed to aggregate metrics from various personal projects. It collects data on performance, usage, and errors, then compiles this information into easily digestible daily and weekly reports. This allows project owners to quickly identify issues and track usage patterns across their application portfolio. (In Progress)',
     githubUrl: 'https://github.com/ipai/pingdom-come',
     imageUrl: '/projects/pingdom-bg.webp',
     technologies: ['Temporal', 'Metrics Collection', 'Observability', 'Analytics', 'Reporting', 'Monitoring', 'Anomaly Detection'],
@@ -211,20 +211,13 @@ export function ProjectSection() {
         {/* Project cards container with padding to prevent hover cutoff */}
         <div 
           ref={scrollContainerRef}
-          className="flex overflow-x-auto gap-6 pb-8 pt-4 snap-x snap-mandatory scrollbar-hide overscroll-x-contain"
-          style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch' }}
+          className="flex overflow-x-auto gap-6 pb-8 pt-4 snap-x snap-mandatory scrollbar-hide overscroll-x-contain project-scroll-container"
         >
-          {projects.map((project) => (
+          {projects.map((project, index) => (
             <div 
               key={project.title} 
               className="project-card w-[260px] h-[320px]"
               onClick={() => openProjectDetails(project)}
-              style={project.imageUrl ? {
-                backgroundImage: `url(${project.imageUrl})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: project.imageRepeat || 'no-repeat'
-              } : undefined}
             >
               <h3 className="text-xl font-medium mb-2 text-gray-900 dark:text-gray-100">
                 {project.title}

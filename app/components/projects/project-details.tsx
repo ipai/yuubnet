@@ -56,23 +56,21 @@ export function ProjectDetails({ project, onClose, isVisible }: ProjectDetailsPr
     <div className="modal-overlay">
       <div 
         ref={modalRef}
-        className="modal-content panel max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-8 relative 
-          bg-white dark:bg-neutral-900/50 
-          border border-neutral-200 dark:border-neutral-700"
+        className="modal-content panel max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-8 relative"
       >
-        {/* Background image with overlay */}
+        {/* Background image */}
         {project.imageUrl && (
           <div 
-            className="absolute inset-0 opacity-10 dark:opacity-5 z-0"
+            className="absolute inset-0 opacity-10 -z-10 bg-center"
             style={{
               backgroundImage: `url(${project.imageUrl})`,
               backgroundSize: project.imageRepeat ? 'auto' : 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: project.imageRepeat || 'no-repeat'
+              backgroundRepeat: project.imageRepeat || 'no-repeat',
             }}
           />
         )}
-        <div className="flex justify-between items-start mb-6 relative z-10">
+        
+        <div className="flex justify-between items-start mb-6">
           <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">{project.title}</h2>
           <button
             onClick={onClose}
@@ -97,7 +95,7 @@ export function ProjectDetails({ project, onClose, isVisible }: ProjectDetailsPr
           </button>
         </div>
         
-        <div className="mb-6 relative z-10">
+        <div className="mb-6">
           <h3 className="text-lg font-medium mb-2 text-gray-800 dark:text-gray-200">Description</h3>
           <p className="text-gray-600 dark:text-gray-400">{project.description}</p>
           {project.longDescription && (
@@ -106,7 +104,7 @@ export function ProjectDetails({ project, onClose, isVisible }: ProjectDetailsPr
         </div>
         
         {project.features && (
-          <div className="mb-6 relative z-10">
+          <div className="mb-6">
             <h3 className="text-lg font-medium mb-2 text-gray-800 dark:text-gray-200">Key Features</h3>
             <ul className="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-1">
               {project.features.map((feature, index) => (
@@ -116,7 +114,7 @@ export function ProjectDetails({ project, onClose, isVisible }: ProjectDetailsPr
           </div>
         )}
         
-        <div className="mb-6 relative z-10">
+        <div className="mb-6">
           <h3 className="text-lg font-medium mb-2 text-gray-800 dark:text-gray-200">Technologies</h3>
           <div className="flex flex-wrap gap-2">
             {project.technologies.map((tech) => (
@@ -130,7 +128,7 @@ export function ProjectDetails({ project, onClose, isVisible }: ProjectDetailsPr
           </div>
         </div>
         
-        <div className="flex flex-wrap gap-3 justify-end relative z-10">
+        <div className="flex flex-wrap gap-3 justify-end">
           {project.liveUrl && (
             <Link 
               href={project.liveUrl}

@@ -1,3 +1,4 @@
+/* Base project card styles */
 .project-card {
   @apply p-5 flex flex-col flex-shrink-0 transition-all duration-300 
     hover:shadow-xl hover:-translate-y-1 
@@ -8,6 +9,26 @@
   position: relative;
 }
 
+/* Background image container */
+.project-card.with-bg-image {
+  position: relative;
+}
+
+/* Background image - applied through JavaScript */
+.project-card.with-bg-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  border-radius: 0.5rem;
+  z-index: 0;
+}
+
+/* Overlay gradient */
 .project-card::before {
   content: '';
   position: absolute;
@@ -49,4 +70,9 @@
 
 .card-content {
   @apply text-gray-600 dark:text-gray-400;
+}
+
+.project-scroll-container {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
