@@ -147,7 +147,7 @@ export function ProjectSection() {
   return (
     <section id="projects" className="scroll-mt-24">
       {/* Title */}
-      <h2 className="font-semibold text-2xl tracking-tighter mb-6">Projects</h2>
+      <h2 className="heading-section">Projects</h2>
       
       {/* Horizontally scrollable project container with side navigation arrows */}
       <div className="relative mx-10 lg:mx-12">
@@ -156,12 +156,7 @@ export function ProjectSection() {
           onClick={() => scroll('left')}
           disabled={scrollPosition <= 0}
           aria-label="Scroll left"
-          className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[calc(100%-4px)] z-10 
-            bg-white dark:bg-gray-900 bg-opacity-80 dark:bg-opacity-80 
-            rounded-full p-2 shadow-md 
-            border border-gray-200 dark:border-gray-700 
-            hover:bg-opacity-100 dark:hover:bg-opacity-100 transition-all 
-            ${scrollPosition <= 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:scale-110'}`}
+          className={`scroll-button-left ${scrollPosition <= 0 ? 'scroll-button-disabled' : 'scroll-button-enabled'}`}
         >
           <svg 
             xmlns="http://www.w3.org/2000/svg"
@@ -183,12 +178,7 @@ export function ProjectSection() {
           onClick={() => scroll('right')}
           disabled={scrollPosition >= maxScroll}
           aria-label="Scroll right"
-          className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-[calc(100%-4px)] z-10 
-            bg-white dark:bg-gray-900 bg-opacity-80 dark:bg-opacity-80 
-            rounded-full p-2 shadow-md 
-            border border-gray-200 dark:border-gray-700 
-            hover:bg-opacity-100 dark:hover:bg-opacity-100 transition-all 
-            ${scrollPosition >= maxScroll ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:scale-110'}`}
+          className={`scroll-button-right ${scrollPosition >= maxScroll ? 'scroll-button-disabled' : 'scroll-button-enabled'}`}
         >
           <svg 
             xmlns="http://www.w3.org/2000/svg"
@@ -218,10 +208,10 @@ export function ProjectSection() {
               className="project-card w-[260px] h-[320px]"
               onClick={() => openProjectDetails(project)}
             >
-              <h3 className="text-xl font-medium mb-2 text-gray-900 dark:text-gray-100">
+              <h3 className="heading-card">
                 {project.title}
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-4 flex-grow text-sm">
+              <p className="text-description">
                 {project.description}
               </p>
               <div className="mb-4">

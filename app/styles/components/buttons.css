@@ -37,3 +37,27 @@
 .button-danger {
   @apply bg-red-500 hover:bg-red-700 text-white;
 }
+
+.scroll-button {
+  @apply absolute top-1/2 z-10 
+    bg-white dark:bg-gray-900 bg-opacity-80 dark:bg-opacity-80 
+    rounded-full p-2 shadow-md 
+    border border-gray-200 dark:border-gray-700 
+    hover:bg-opacity-100 dark:hover:bg-opacity-100 transition-all;
+}
+
+.scroll-button-left {
+  @apply scroll-button left-0 -translate-y-1/2 -translate-x-[calc(100%-4px)];
+}
+
+.scroll-button-right {
+  @apply scroll-button right-0 -translate-y-1/2 translate-x-[calc(100%-4px)];
+}
+
+.scroll-button-disabled {
+  @apply opacity-30 cursor-not-allowed;
+}
+
+.scroll-button-enabled {
+  @apply opacity-100 hover:scale-110;
+}

@@ -95,3 +95,19 @@ table {
   overflow-x: auto;
   white-space: nowrap;
 }
+
+.text-description {
+  @apply text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4 flex-grow;
+}
+
+.text-description-dialog {
+  @apply text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed;
+}
+
+.heading-section {
+  @apply font-semibold text-2xl tracking-tighter mb-6;
+}
+
+.heading-card {
+  @apply text-xl font-medium text-gray-900 dark:text-gray-100 mb-2;
+}
