@@ -55,6 +55,7 @@ const projects: Project[] = [
     description: 'A Chrome extension for downloading media content from websites.',
     longDescription: 'Brotwurst is a powerful Chrome extension that enables users to download various media types including videos, images, and audio from websites. It detects media elements on web pages and provides a convenient way to save them locally. The extension respects website terms of service and is designed for saving content for legitimate personal use.',
     githubUrl: 'https://github.com/ipai/brotwurst',
+    liveUrl: 'https://chromewebstore.google.com/detail/media-downloader/kfiffbmdhmnneimcnenddboghfpifold1',
     imageUrl: '/projects/brotwurst-banner.webp',
     imageRepeat: 'repeat-space',
     technologies: ['Chrome Extension', 'JavaScript', 'Media Processing', 'DOM Manipulation', 'Network Interception'],
