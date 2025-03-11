@@ -9,7 +9,7 @@ pnpm run pages:build && \
 npx wrangler pages deploy ./vercel/output/static
 ```
 
-## Deploy analytics database
+## Deploy Cloudflare Workers
 ```bash
 npx wrangler deploy --config workers/wrangler.asset-fetch.toml
 npx wrangler deploy --config workers/wrangler.analytics.toml
